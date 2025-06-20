@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "333736805515",
+    "project_id": "kanakdhara-41a15",
+    "storage_bucket": "kanakdhara-41a15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333736805515:android:4cf6d0c5439692bd2d008e",
+        "android_client_info": {
+          "package_name": "com.kanakdhara"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzMm0TweVzSTRwBo6ppZPLXhB4pyeqqMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
