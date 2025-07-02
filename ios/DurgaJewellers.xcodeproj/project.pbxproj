@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* KanakDharaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* KanakDharaTests.m */; };
+		00E356F31AD99517003FC87E /* DurgaJewellersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DurgaJewellersTests.m */; };
 		0741528484794938B964A95B /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F98653F736C44A9885CFE69D /* Montserrat-ExtraLightItalic.ttf */; };
 		122F39F5D1954332853C4A67 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4DA8570566804B4C80066F2B /* Montserrat-SemiBold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		334ACFD03347F4D32627C16D /* libPods-KanakDhara-KanakDharaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B0F1CD79903D92E783D38F /* libPods-KanakDhara-KanakDharaTests.a */; };
+		334ACFD03347F4D32627C16D /* libPods-DurgaJewellers-DurgaJewellersTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B0F1CD79903D92E783D38F /* libPods-DurgaJewellers-DurgaJewellersTests.a */; };
 		344EFE112F4D411E88A8F5AD /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4DDBAC38CE8482D94466CEF /* Montserrat-Bold.ttf */; };
 		3BE17A1E6E7F4164A4FB67EF /* Montserrat-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FC06BB77B914E67B1044F2F /* Montserrat-MediumItalic.ttf */; };
 		4022FAA0F3EB4EA29D475306 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DCDC53F2E944391B212F198 /* Montserrat-Light.ttf */; };
@@ -42,7 +42,7 @@
 		84BC768E2A70E1DA00F47DB0 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BC76792A70E19100F47DB0 /* SimpleLineIcons.ttf */; };
 		84BC768F2A70E1DA00F47DB0 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BC76782A70E19100F47DB0 /* Zocial.ttf */; };
 		84DD2C052A70E93D002CAB2C /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84DD2C042A70E917002CAB2C /* AntDesign.ttf */; };
-		8A3AA30E4337E9CCB40B2C19 /* libPods-KanakDhara.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA82010CFEC77999149D9FCF /* libPods-KanakDhara.a */; };
+		8A3AA30E4337E9CCB40B2C19 /* libPods-DurgaJewellers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA82010CFEC77999149D9FCF /* libPods-DurgaJewellers.a */; };
 		8A627299E0934C938279C85D /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF6534D56F2C4EDFBF37132D /* Montserrat-SemiBoldItalic.ttf */; };
 		9C0F0FC61D0C468392760218 /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8F926ADA50400DBCEB378C /* Montserrat-ExtraBoldItalic.ttf */; };
 		BAD8618FEB614152998B06AA /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790EFAE1EB4241E7AC73652F /* Montserrat-BoldItalic.ttf */; };
@@ -59,31 +59,31 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = KanakDhara;
+			remoteInfo = "DurgaJewellers";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* KanakDharaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KanakDharaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* DurgaJewellersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DurgaJewellersTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* KanakDharaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KanakDharaTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* DurgaJewellersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DurgaJewellersTests.m"; sourceTree = "<group>"; };
 		0FFF9E79AA4449ED9C977C9B /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraBold.ttf"; path = "../assets/fonts/Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* KanakDhara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KanakDhara.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = KanakDhara/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = KanakDhara/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = KanakDhara/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = KanakDhara/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = KanakDhara/main.m; sourceTree = "<group>"; };
-		24CD3660FCD3CEF998AF5BF1 /* Pods-KanakDhara.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KanakDhara.debug.xcconfig"; path = "Target Support Files/Pods-KanakDhara/Pods-KanakDhara.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* DurgaJewellers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DurgaJewellers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "DurgaJewellers/AppDelegate.h"; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "DurgaJewellers/AppDelegate.mm"; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "DurgaJewellers/Images.xcassets"; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "DurgaJewellers/Info.plist"; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "DurgaJewellers/main.m"; sourceTree = "<group>"; };
+		24CD3660FCD3CEF998AF5BF1 /* Pods-DurgaJewellers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DurgaJewellers.debug.xcconfig"; path = "Target Support Files/Pods-DurgaJewellers/Pods-DurgaJewellers.debug.xcconfig"; sourceTree = "<group>"; };
 		32E04996D95E49CCB2E12C34 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Thin.ttf"; path = "../assets/fonts/Montserrat-Thin.ttf"; sourceTree = "<group>"; };
-		33B0F1CD79903D92E783D38F /* libPods-KanakDhara-KanakDharaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KanakDhara-KanakDharaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		33D009128E64A051F0048599 /* Pods-KanakDhara-KanakDharaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KanakDhara-KanakDharaTests.debug.xcconfig"; path = "Target Support Files/Pods-KanakDhara-KanakDharaTests/Pods-KanakDhara-KanakDharaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		33B0F1CD79903D92E783D38F /* libPods-DurgaJewellers-DurgaJewellersTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DurgaJewellers-DurgaJewellersTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33D009128E64A051F0048599 /* Pods-DurgaJewellers-DurgaJewellersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DurgaJewellers-DurgaJewellersTests.debug.xcconfig"; path = "Target Support Files/Pods-DurgaJewellers-DurgaJewellersTests/Pods-DurgaJewellers-DurgaJewellersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3D688B2902B14DE9AA33E217 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Black.ttf"; path = "../assets/fonts/Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		3FF3888C5A144649AA809452 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraLight.ttf"; path = "../assets/fonts/Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		4DA8570566804B4C80066F2B /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		790EFAE1EB4241E7AC73652F /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-BoldItalic.ttf"; path = "../assets/fonts/Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
 		7FC06BB77B914E67B1044F2F /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-MediumItalic.ttf"; path = "../assets/fonts/Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = KanakDhara/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = "DurgaJewellers/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		835CD9D45B074A528E1FCC29 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-BlackItalic.ttf"; path = "../assets/fonts/Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
 		84BC766C2A70E19000F47DB0 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		84BC766D2A70E19000F47DB0 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -104,14 +104,14 @@
 		84BC767C2A70E19100F47DB0 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		84BC767D2A70E19100F47DB0 /* FontAwesome6_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome6_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome6_Regular.ttf"; sourceTree = "<group>"; };
 		84DD2C042A70E917002CAB2C /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		89453BFB8A2AF8B6262D153E /* Pods-KanakDhara-KanakDharaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KanakDhara-KanakDharaTests.release.xcconfig"; path = "Target Support Files/Pods-KanakDhara-KanakDharaTests/Pods-KanakDhara-KanakDharaTests.release.xcconfig"; sourceTree = "<group>"; };
+		89453BFB8A2AF8B6262D153E /* Pods-DurgaJewellers-DurgaJewellersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DurgaJewellers-DurgaJewellersTests.release.xcconfig"; path = "Target Support Files/Pods-DurgaJewellers-DurgaJewellersTests/Pods-DurgaJewellers-DurgaJewellersTests.release.xcconfig"; sourceTree = "<group>"; };
 		8DADF449D4904673A247E868 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		9DBD14B50FF643BFBA93715D /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		9DCDC53F2E944391B212F198 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Light.ttf"; path = "../assets/fonts/Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		9E8F926ADA50400DBCEB378C /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraBoldItalic.ttf"; path = "../assets/fonts/Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		BB89135E148547FEA405B52C /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-LightItalic.ttf"; path = "../assets/fonts/Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
-		CEC01E918F3CE93E306F9716 /* Pods-KanakDhara.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KanakDhara.release.xcconfig"; path = "Target Support Files/Pods-KanakDhara/Pods-KanakDhara.release.xcconfig"; sourceTree = "<group>"; };
-		DA82010CFEC77999149D9FCF /* libPods-KanakDhara.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KanakDhara.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEC01E918F3CE93E306F9716 /* Pods-DurgaJewellers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DurgaJewellers.release.xcconfig"; path = "Target Support Files/Pods-DurgaJewellers/Pods-DurgaJewellers.release.xcconfig"; sourceTree = "<group>"; };
+		DA82010CFEC77999149D9FCF /* libPods-DurgaJewellers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DurgaJewellers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F25D1799C5DC442988E50A08 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Italic.ttf"; path = "../assets/fonts/Montserrat-Italic.ttf"; sourceTree = "<group>"; };
 		F4DDBAC38CE8482D94466CEF /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				334ACFD03347F4D32627C16D /* libPods-KanakDhara-KanakDharaTests.a in Frameworks */,
+				334ACFD03347F4D32627C16D /* libPods-DurgaJewellers-DurgaJewellersTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,20 +133,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A3AA30E4337E9CCB40B2C19 /* libPods-KanakDhara.a in Frameworks */,
+				8A3AA30E4337E9CCB40B2C19 /* libPods-DurgaJewellers.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* KanakDharaTests */ = {
+		00E356EF1AD99517003FC87E /* DurgaJewellersTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* KanakDharaTests.m */,
+				00E356F21AD99517003FC87E /* DurgaJewellersTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = KanakDharaTests;
+			path = "DurgaJewellersTests";
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -157,7 +157,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* KanakDhara */ = {
+		13B07FAE1A68108700A75B9A /* DurgaJewellers */ = {
 			isa = PBXGroup;
 			children = (
 				84BC766B2A70E15C00F47DB0 /* Fonts */,
@@ -168,15 +168,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = KanakDhara;
+			name = "DurgaJewellers";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				DA82010CFEC77999149D9FCF /* libPods-KanakDhara.a */,
-				33B0F1CD79903D92E783D38F /* libPods-KanakDhara-KanakDharaTests.a */,
+				DA82010CFEC77999149D9FCF /* libPods-DurgaJewellers.a */,
+				33B0F1CD79903D92E783D38F /* libPods-DurgaJewellers-DurgaJewellersTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -216,9 +216,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* KanakDhara */,
+				13B07FAE1A68108700A75B9A /* DurgaJewellers */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* KanakDharaTests */,
+				00E356EF1AD99517003FC87E /* DurgaJewellersTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -232,8 +232,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* KanakDhara.app */,
-				00E356EE1AD99517003FC87E /* KanakDharaTests.xctest */,
+				13B07F961A680F5B00A75B9A /* DurgaJewellers.app */,
+				00E356EE1AD99517003FC87E /* DurgaJewellersTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -267,10 +267,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				24CD3660FCD3CEF998AF5BF1 /* Pods-KanakDhara.debug.xcconfig */,
-				CEC01E918F3CE93E306F9716 /* Pods-KanakDhara.release.xcconfig */,
-				33D009128E64A051F0048599 /* Pods-KanakDhara-KanakDharaTests.debug.xcconfig */,
-				89453BFB8A2AF8B6262D153E /* Pods-KanakDhara-KanakDharaTests.release.xcconfig */,
+				24CD3660FCD3CEF998AF5BF1 /* Pods-DurgaJewellers.debug.xcconfig */,
+				CEC01E918F3CE93E306F9716 /* Pods-DurgaJewellers.release.xcconfig */,
+				33D009128E64A051F0048599 /* Pods-DurgaJewellers-DurgaJewellersTests.debug.xcconfig */,
+				89453BFB8A2AF8B6262D153E /* Pods-DurgaJewellers-DurgaJewellersTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -278,9 +278,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* KanakDharaTests */ = {
+		00E356ED1AD99517003FC87E /* DurgaJewellersTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "KanakDharaTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DurgaJewellersTests" */;
 			buildPhases = (
 				514323A0E64818B3C154ECB6 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -294,14 +294,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = KanakDharaTests;
-			productName = KanakDharaTests;
-			productReference = 00E356EE1AD99517003FC87E /* KanakDharaTests.xctest */;
+			name = DurgaJewellersTests;
+			productName = DurgaJewellersTests;
+			productReference = 00E356EE1AD99517003FC87E /* DurgaJewellersTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* KanakDhara */ = {
+		13B07F861A680F5B00A75B9A /* DurgaJewellers */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "KanakDhara" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DurgaJewellers" */;
 			buildPhases = (
 				DFB3FCC963B978BF77B2EFEF /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -316,9 +316,9 @@
 			);
 			dependencies = (
 			);
-			name = KanakDhara;
-			productName = KanakDhara;
-			productReference = 13B07F961A680F5B00A75B9A /* KanakDhara.app */;
+			name = "DurgaJewellers";
+			productName = "DurgaJewellers";
+			productReference = 13B07F961A680F5B00A75B9A /* DurgaJewellers.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -338,7 +338,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "KanakDhara" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DurgaJewellers" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -351,8 +351,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* KanakDhara */,
-				00E356ED1AD99517003FC87E /* KanakDharaTests */,
+				13B07F861A680F5B00A75B9A /* DurgaJewellers */,
+				00E356ED1AD99517003FC87E /* DurgaJewellersTests */,
 			);
 		};
 /* End PBXProject section */
@@ -445,7 +445,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KanakDhara-KanakDharaTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DurgaJewellers-DurgaJewellersTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -458,15 +458,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanakDhara-KanakDharaTests/Pods-KanakDhara-KanakDharaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers-DurgaJewellersTests/Pods-DurgaJewellers-DurgaJewellersTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanakDhara-KanakDharaTests/Pods-KanakDhara-KanakDharaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers-DurgaJewellersTests/Pods-DurgaJewellers-DurgaJewellersTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KanakDhara-KanakDharaTests/Pods-KanakDhara-KanakDharaTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers-DurgaJewellersTests/Pods-DurgaJewellers-DurgaJewellersTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9E60903F2D3FD03F13A5E14E /* [CP] Copy Pods Resources */ = {
@@ -475,15 +475,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanakDhara-KanakDharaTests/Pods-KanakDhara-KanakDharaTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers-DurgaJewellersTests/Pods-DurgaJewellers-DurgaJewellersTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanakDhara-KanakDharaTests/Pods-KanakDhara-KanakDharaTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers-DurgaJewellersTests/Pods-DurgaJewellers-DurgaJewellersTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KanakDhara-KanakDharaTests/Pods-KanakDhara-KanakDharaTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers-DurgaJewellersTests/Pods-DurgaJewellers-DurgaJewellersTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC483C07F196B84BBA897333 /* [CP] Embed Pods Frameworks */ = {
@@ -492,15 +492,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanakDhara/Pods-KanakDhara-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers/Pods-DurgaJewellers-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanakDhara/Pods-KanakDhara-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers/Pods-DurgaJewellers-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KanakDhara/Pods-KanakDhara-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers/Pods-DurgaJewellers-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D711E7AAC5D792DCC41CFB33 /* [CP] Copy Pods Resources */ = {
@@ -509,15 +509,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanakDhara/Pods-KanakDhara-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers/Pods-DurgaJewellers-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanakDhara/Pods-KanakDhara-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers/Pods-DurgaJewellers-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KanakDhara/Pods-KanakDhara-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DurgaJewellers/Pods-DurgaJewellers-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DFB3FCC963B978BF77B2EFEF /* [CP] Check Pods Manifest.lock */ = {
@@ -535,7 +535,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KanakDhara-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DurgaJewellers-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -568,7 +568,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* KanakDharaTests.m in Sources */,
+				00E356F31AD99517003FC87E /* DurgaJewellersTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,7 +586,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* KanakDhara */;
+			target = 13B07F861A680F5B00A75B9A /* DurgaJewellers */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -594,14 +594,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33D009128E64A051F0048599 /* Pods-KanakDhara-KanakDharaTests.debug.xcconfig */;
+			baseConfigurationReference = 33D009128E64A051F0048599 /* Pods-DurgaJewellers-DurgaJewellersTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = KanakDharaTests/Info.plist;
+				INFOPLIST_FILE = "DurgaJewellersTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -613,19 +613,19 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.durgajewellers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KanakDhara.app/KanakDhara";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DurgaJewellers.app/DurgaJewellers";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89453BFB8A2AF8B6262D153E /* Pods-KanakDhara-KanakDharaTests.release.xcconfig */;
+			baseConfigurationReference = 89453BFB8A2AF8B6262D153E /* Pods-DurgaJewellers-DurgaJewellersTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = KanakDharaTests/Info.plist;
+				INFOPLIST_FILE = "DurgaJewellersTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -637,23 +637,23 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.durgajewellers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KanakDhara.app/KanakDhara";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DurgaJewellers.app/DurgaJewellers";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24CD3660FCD3CEF998AF5BF1 /* Pods-KanakDhara.debug.xcconfig */;
+			baseConfigurationReference = 24CD3660FCD3CEF998AF5BF1 /* Pods-DurgaJewellers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = KanakDhara/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kanak Dhara";
+				INFOPLIST_FILE = "DurgaJewellers/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Durga Jewellers";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -664,8 +664,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kanakdhara;
-				PRODUCT_NAME = KanakDhara;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.durgajewellers";
+				PRODUCT_NAME = "DurgaJewellers";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -674,14 +674,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEC01E918F3CE93E306F9716 /* Pods-KanakDhara.release.xcconfig */;
+			baseConfigurationReference = CEC01E918F3CE93E306F9716 /* Pods-DurgaJewellers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = KanakDhara/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kanak Dhara";
+				INFOPLIST_FILE = "DurgaJewellers/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Durga Jewellers";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -692,8 +692,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kanakdhara;
-				PRODUCT_NAME = KanakDhara;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.durgajewellers";
+				PRODUCT_NAME = "DurgaJewellers";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -854,7 +854,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "KanakDharaTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DurgaJewellersTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -863,7 +863,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "KanakDhara" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DurgaJewellers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -872,7 +872,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "KanakDhara" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DurgaJewellers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

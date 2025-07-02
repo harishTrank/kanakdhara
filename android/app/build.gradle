@@ -75,9 +75,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.kanakdhara"
+    namespace "com.durgajewellers"
     defaultConfig {
-        applicationId "com.kanakdhara"
+        applicationId "com.durgajewellers"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

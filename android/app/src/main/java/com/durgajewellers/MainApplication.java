@@ -1,4 +1,4 @@
-package com.kanakdhara;
+package com.durgajewellers;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
