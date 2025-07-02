@@ -29,7 +29,7 @@ export const HomeHeader = () => {
             textAlign={'center'}
             fontWeight={'500'}
             fontSize={'sm'}>
-            24k gold price INR {goldPrice}
+            24k gold price INR {Number(goldPrice)?.toFixed(2)}
           </Text>
         )}
       </Box>

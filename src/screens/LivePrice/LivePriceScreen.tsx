@@ -1,9 +1,7 @@
 import React, {FC, useEffect, useState, useRef} from 'react';
 import {Box, FlatList, HStack, Image, Text} from 'native-base';
-// import AntDesign from 'react-native-vector-icons/AntDesign';
 import {RootBottomTabScreenProps} from '../../navigation/types';
 import {HomeHeader} from '../Home/components/HomeHeader';
-import {LiveGoldItem} from '../../data/LiveGoldData';
 import {Colors} from '../../utils/Colors';
 import axios from 'axios';
 import {
@@ -15,8 +13,9 @@ import {
 type Props = RootBottomTabScreenProps<'LivePrice'>;
 
 export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
-  const [liveDataPrice, setLiveDataPrice]: any = useState([]);
-  const intervalRef: any = useRef(null);
+  const [liveDataPrice, setLiveDataPrice] = useState<any[]>([]);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
   const renderItem = ({item, index}: any) => {
     return (
       <HStack
@@ -67,116 +66,120 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
     );
   };
 
-  const upFlagManager = (oldValue: any, id: any, currentPrice: any) => {
-    const oldValobj: any = oldValue?.find((item: any) => item.id === id);
-    if (Number(oldValobj?.price) === Number(currentPrice)) {
-      return oldValobj.up;
-    } else {
-      return Number(oldValobj?.price) < Number(currentPrice);
+  const upFlagManager = (oldValue: any[], id: number, currentPrice: number) => {
+    const oldItem = oldValue?.find(item => item.id === id);
+
+    // If there's no previous item (e.g., first load), default to 'up'
+    if (!oldItem || oldItem.price === undefined) {
+      return true;
     }
+
+    // If price hasn't changed, keep the previous direction
+    if (Number(oldItem.price) === Number(currentPrice)) {
+      return oldItem.up;
+    }
+
+    // Return true if new price is higher (up), false otherwise (down)
+    return Number(currentPrice) > Number(oldItem.price);
   };
 
-  const goldPriceCalculator = (price: any) => {
-    return Number(price * 11.7)?.toFixed(2);
-  };
-
-  const silverPriceCalculator = (price: any) => {
-    return Number(price * 1130)?.toFixed(2);
-  };
   const liveApiPriceHandler = async () => {
     try {
-      const silverResponse: any = await axios.get(SILVER_PRICE_URL, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': GOLD_API_KEY,
-        },
-      });
-      const goldResponse: any = await axios.get(GOLD_PRICE_URL, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': GOLD_API_KEY,
-        },
-      });
-      setLiveDataPrice((oldValue: any) => [
+      const [goldResponse, silverResponse] = await Promise.all([
+        axios.get(GOLD_PRICE_URL, {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': GOLD_API_KEY,
+          },
+        }),
+        axios.get(SILVER_PRICE_URL, {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': GOLD_API_KEY,
+          },
+        }),
+      ]);
+
+      const goldData = goldResponse?.data;
+      const silverData = silverResponse?.data;
+      if (!goldData || !silverData || !goldData.price_gram_24k) {
+        console.log('API did not return valid gold or silver data.');
+        return;
+      }
+
+      const base24kPrice = Math.round(goldData.price_gram_24k * 10);
+      const price22k = Math.round(base24kPrice * 0.916);
+      const price18k = Math.round(base24kPrice * 0.75);
+      const price14k = Math.round(base24kPrice * 0.6); 
+      const silverPricePerKg = Math.round(silverData.price_gram_24k * 1100);
+      setLiveDataPrice(oldValue => [
         {
           id: 1,
           item: 'Gold',
           qty: '24 karat',
-          price: goldPriceCalculator(goldResponse?.data?.price_gram_24k),
-          up: upFlagManager(
-            oldValue,
-            1,
-            goldPriceCalculator(goldResponse?.data?.price_gram_24k),
-          ),
+          price: base24kPrice,
+          up: upFlagManager(oldValue, 1, base24kPrice),
         },
         {
           id: 2,
           item: 'Gold',
           qty: '22 karat',
-          price: goldPriceCalculator(goldResponse?.data?.price_gram_22k),
-          up: upFlagManager(
-            oldValue,
-            2,
-            goldPriceCalculator(goldResponse?.data?.price_gram_22k),
-          ),
+          price: price22k,
+          up: upFlagManager(oldValue, 2, price22k),
         },
         {
           id: 5,
           item: 'Gold',
           qty: '18 karat',
-          price: goldPriceCalculator(goldResponse?.data?.price_gram_18k),
-          up: upFlagManager(
-            oldValue,
-            5,
-            goldPriceCalculator(goldResponse?.data?.price_gram_18k),
-          ),
+          price: price18k,
+          up: upFlagManager(oldValue, 5, price18k),
         },
         {
           id: 7,
           item: 'Gold',
           qty: '14 karat',
-          price: goldPriceCalculator(goldResponse?.data?.price_gram_14k),
-          up: upFlagManager(
-            oldValue,
-            7,
-            goldPriceCalculator(goldResponse?.data?.price_gram_14k),
-          ),
+          price: price14k,
+          up: upFlagManager(oldValue, 7, price14k),
         },
         {
           id: 9,
           item: 'Silver',
           qty: '',
-          price: silverPriceCalculator(silverResponse?.data?.price_gram_24k),
-          up: upFlagManager(
-            oldValue,
-            9,
-            silverPriceCalculator(silverResponse?.data?.price_gram_24k),
-          ),
+          price: silverPricePerKg,
+          up: upFlagManager(oldValue, 9, silverPricePerKg),
         },
       ]);
     } catch (error) {
-      console.log('error', error);
+      console.log('Error fetching live prices:', error);
     }
   };
 
   useEffect(() => {
     const onFocus = () => {
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+      }
+      liveApiPriceHandler();
       intervalRef.current = setInterval(() => {
         liveApiPriceHandler();
-      }, 1000);
+      }, 1000); 
     };
+
     const onBlur = () => {
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
     };
+
     const focusListener = navigation.addListener('focus', onFocus);
     const blurListener = navigation.addListener('blur', onBlur);
+
+    // Cleanup function when the component unmounts
     return () => {
       focusListener();
       blurListener();
-      onBlur();
+      onBlur(); // Ensure interval is cleared on unmount
     };
   }, [navigation]);
 
@@ -194,13 +197,12 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
       <FlatList
         style={{
           marginBottom: 50,
-          paddingBottom: 100,
         }}
+        contentContainerStyle={{paddingBottom: 100}}
         showsVerticalScrollIndicator={false}
         data={liveDataPrice || []}
         renderItem={renderItem}
-        keyExtractor={(item: any) => `${item.item}${item.qty}`}
-        pb={100}
+        keyExtractor={(item: any) => `${item.id}`} // Use a unique ID for the key
       />
     </Box>
   );

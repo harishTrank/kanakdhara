@@ -7,4 +7,4 @@ export const GOLD_PRICE_URL = 'https://www.goldapi.io/api/XAU/INR';
 export const SILVER_PRICE_URL = 'https://www.goldapi.io/api/XAG/INR';
 
 export const USER_SESSION = 'KANAK_DHARA_SESSION';
-export const GOLD_API_KEY = 'goldapi-211slujnvyse-io';
+export const GOLD_API_KEY = 'goldapi-17cw0519maqtju5c-io';
