@@ -100,7 +100,9 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
             textTransform={'capitalize'}></Text>
           <Pressable
             onPress={() =>
-              navigation.navigate('ProductPage', {itemId: item?.id})
+            {
+              navigation.navigate('ProductPage', {itemId: item?.id});
+            }
             }>
             <Text
               fontWeight={'500'}

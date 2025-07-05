@@ -2,12 +2,14 @@ import {useEffect, useState} from 'react';
 
 import {useMessage} from './useMessage';
 import {GOLD_API_KEY, GOLD_API_STATUS, GOLD_PRICE_URL} from '../lib/Constants';
+import { useGetCustomPriceApi } from '../hooksQuery/Home/query';
 
 export const useGetGoldRates = () => {
   const setMessage = useMessage();
 
   const [goldPrice, setGoldPrice] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const getCustomPriceApi: any = useGetCustomPriceApi();
 
   const getGoldRates = async () => {
     const myHeaders = new Headers();
@@ -30,7 +32,7 @@ export const useGetGoldRates = () => {
             .then(response => response.text())
             .then(res => {
               const goldDetails: any = JSON.parse(res);
-              const base24kPrice: any = Math.round(goldDetails.price_gram_24k * 10) + 6999;
+              const base24kPrice: any = Math.round(goldDetails.price_gram_24k * 10) + (Number(getCustomPriceApi?.data?.karat_24_price_addon) || 6999);
               setGoldPrice(base24kPrice);
               setIsLoading(false);
             })

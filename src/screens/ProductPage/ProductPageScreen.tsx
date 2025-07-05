@@ -1,14 +1,13 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {
   Box,
   FlatList,
   HStack,
   Image,
-  ScrollView,
   Text,
   Pressable,
+  Spinner,
 } from 'native-base';
-import {TouchableOpacity, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {RootStackScreenProps} from '../../navigation/types';
 import {ScreenHeader} from '../../components/common/ScreenHeader';
@@ -19,227 +18,236 @@ import {PriceRangeModal} from './components/PriceRangeModel';
 import {FilterModal} from './components/FilterModal';
 import {categoeryProduct} from '../../QueryStore/Services/Home';
 import {useGetAllCategories} from '../../hooks/useGetAllCategories';
-import {getDecimalPart} from '../../utils/userUtils';
 import FullScreenLoader from '../../components/FullScreenLoader';
+
+// --- Best Practice: Define a type for your data structure ---
+interface Product {
+  id: number;
+  name: string;
+  images: {src: string}[];
+  variationProduct: {price: string}[];
+  // Add other properties as needed
+}
 
 type Props = RootStackScreenProps<'ProductPage'>;
 
 export const ProductPageScreen: FC<Props> = ({route, navigation}: any) => {
-  const [open, setOpen] = useState(false);
-  const [sort, setSort] = useState(false);
-  const [category, setCategory] = useState(false);
-  const [price, setPrice] = useState(false);
-  const [loading, setLoading]: any = useState(true);
-
-  const [sortValue, setSortValue]: any = useState('default');
-  const [categoryValue, setCategoryValue]: any = useState(undefined);
-  const {categoryList}: any = useGetAllCategories();
-  const [currentResponse, setCurrentResponse]: any = useState([]);
-
-  const [priceRange, setPriceRange]: any = useState({
+  const [isSortModalVisible, setSortModalVisible] = useState(false);
+  const [isCategoryModalVisible, setCategoryModalVisible] = useState(false);
+  const [isPriceModalVisible, setPriceModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [sortValue, setSortValue] = useState<string>('default');
+  const [categoryValue, setCategoryValue] = useState<any>(route.params?.itemId);
+  const [priceRange, setPriceRange] = useState<{max: string; min: string}>({
     max: '',
     min: '',
   });
 
+  const {categoryList} = useGetAllCategories();
+  const [products, setProducts] = useState<Product[]>([]);
   useEffect(() => {
     if (route.params?.itemId) {
-      setTimeout(() => {
-        setCategoryValue(route.params?.itemId);
-      }, 500);
+      setCategoryValue(route.params.itemId);
     }
   }, [route.params?.itemId]);
+  const fetchDataHandler = useCallback(() => {
+    setIsLoading(true);
+    let query: any = {
+      category: categoryValue,
+      per_page: 200,
+      page: 1,
+      sort: sortValue,
+    };
 
-  const fetchDataHandler = () => {
-    setLoading(true);
-    setCategory(false);
+    if (priceRange?.max && priceRange?.max !== "") {
+      query.max_price = priceRange?.max;
+    }
+    if (priceRange?.min && priceRange?.min !== "") {
+      query.min_price = priceRange?.min;
+    }
     categoeryProduct({
-      query: {
-        category: categoryValue,
-        per_page: 200,
-        page: 1,
-        sort: sortValue,
-        max_price: priceRange.max,
-        min_price: priceRange.min,
-      },
+      query,
     })
       .then((res: any) => {
-        setCurrentResponse(res?.data);
-        setLoading(false);
+        setProducts(res?.data || []);
       })
-      .catch((err: any) => setLoading(false));
-  };
+      .catch((err: any) => {
+        console.error('Failed to fetch products:', err);
+        setProducts([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [categoryValue, sortValue, priceRange]);
 
   useEffect(() => {
     fetchDataHandler();
-  }, [categoryValue, sortValue, priceRange]);
-
-  const renderProductItem = ({item}: any) => {
+  }, [fetchDataHandler]);
+  const renderProductItem = useCallback(
+    ({item}: {item: Product}) => {
+      return (
+        <Pressable
+          w="32%"
+          mb={2}
+          onPress={() => navigation.navigate('ProductDetail', {item})}>
+          <Box
+            bg={'gray.100'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            p={3}
+            borderRadius="md">
+            <Image
+              source={{uri: item?.images?.[0]?.src}}
+              size={'md'}
+              alt={item.name || 'Product Image'}
+              resizeMode="contain"
+            />
+          </Box>
+          <Text
+            fontWeight={'500'}
+            fontSize={'sm'}
+            color={'black'}
+            numberOfLines={1}
+            mt={1}>
+            {item?.name}
+          </Text>
+          <Text fontWeight={'400'} fontSize={'xs'} color={'black'}>
+            {item?.variationProduct?.[0]?.price
+              ? `₹${item.variationProduct[0].price}`
+              : 'Price not available'}
+          </Text>
+        </Pressable>
+      );
+    },
+    [navigation],
+  );
+  const ListHeader = () => {
+    if (isLoading || products.length === 0) {
+      return null;
+    }
+    const firstProduct = products[0];
     return (
-      <TouchableOpacity
-        style={{
-          width: '32%',
-          marginBottom: 5,
-          marginLeft: 3,
-        }}
-        onPress={() => navigation.navigate('ProductDetail', {item})}>
-        <Box bg={'#'} alignItems={'center'} justifyContent={'center'} p={3}>
-          <Image
-            source={{uri: item?.images?.[0]?.src}}
-            size={'md'}
-            alt={'no img'}
-          />
-        </Box>
+      <Pressable
+        mb={5}
+        onPress={() =>
+          navigation.navigate('ProductDetail', {item: firstProduct})
+        }>
+        <Image
+          source={{uri: firstProduct?.images?.[0]?.src}}
+          h={300}
+          w={'100%'}
+          alt={firstProduct.name || 'Product Image'}
+          bg={'gray.100'}
+          resizeMode={'contain'}
+        />
+        <Text
+          fontWeight={'600'}
+          fontSize={'md'}
+          color={'black'}
+          numberOfLines={1}
+          mt={1}>
+          {firstProduct?.name}
+        </Text>
         <Text
           fontWeight={'500'}
           fontSize={'sm'}
           color={'black'}
           numberOfLines={1}>
-          {item?.name}
+          {firstProduct?.variationProduct?.[0]?.price
+            ? `₹${firstProduct.variationProduct[0].price}`
+            : ''}
         </Text>
-        <Text fontWeight={'400'} fontSize={'xs'} color={'black'}>
-          {`₹${item?.variationProduct?.[0]?.price}`}
-          {/* <Text textDecorationLine={'line-through'}>{`₹${item?.regular_price}`}</Text> */}
-          {/* <Text color={'#3b8126'} fontWeight={'600'}>
-            {' '}
-            {`${getDecimalPart(
-              item?.regular_price,
-              item?.sale_price,
-            )}% off`}
-          </Text> */}
+      </Pressable>
+    );
+  };
+
+  const ListEmpty = () => {
+    if (isLoading) {
+      return null;
+    }
+    return (
+      <Box flex={1} alignItems="center" justifyContent="center" mt="40%">
+        <Text fontWeight={'600'} fontSize={'md'} color={'gray.500'}>
+          No products found in this category.
         </Text>
-      </TouchableOpacity>
+      </Box>
     );
   };
 
   return (
     <Box flex={1} bg={'white'}>
       <ScreenHeader heading={'Products'} />
-      <FullScreenLoader loading={loading} />
+      <FullScreenLoader loading={false} />
+
       <HStack
         alignItems={'center'}
-        justifyContent={'space-between'}
-        mx={5}
-        pb={5}>
-        <TouchableOpacity onPress={() => setSort(true)}>
-          <HStack alignItems={'center'}>
+        justifyContent={'space-around'}
+        px={4}
+        py={4}
+        borderBottomWidth={1}
+        borderBottomColor="gray.200">
+        <Pressable onPress={() => setSortModalVisible(true)} hitSlop={10}>
+          <HStack alignItems={'center'} space={1}>
             <Text fontWeight={'600'} fontSize={'sm'} color={Colors.textColor}>
-              Sort{' '}
+              Sort
             </Text>
             <AntDesign name="caretdown" size={15} color={Colors.textColor} />
           </HStack>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCategory(true)}>
-          <HStack alignItems={'center'}>
-            <Text fontWeight={'600'} fontSize={'sm'} color={'#9C9C9C'}>
-              Category{' '}
+        </Pressable>
+        <Pressable onPress={() => setCategoryModalVisible(true)} hitSlop={10}>
+          <HStack alignItems={'center'} space={1}>
+            <Text fontWeight={'600'} fontSize={'sm'} color={Colors.textColor}>
+              Category
             </Text>
             <AntDesign name="caretdown" size={15} color={Colors.textColor} />
           </HStack>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setPrice(true)}>
-          <HStack alignItems={'center'}>
+        </Pressable>
+        <Pressable onPress={() => setPriceModalVisible(true)} hitSlop={10}>
+          <HStack alignItems={'center'} space={1}>
             <Text fontWeight={'600'} fontSize={'sm'} color={Colors.textColor}>
-              Price Range{' '}
+              Price Range
             </Text>
             <AntDesign name="caretdown" size={15} color={Colors.textColor} />
           </HStack>
-        </TouchableOpacity>
-        {/* <Pressable onPress={() => setOpen(true)}>
-          <HStack alignItems={'center'}>
-            <Text fontWeight={'600'} fontSize={'sm'} color={Colors.textColor}>
-              Filter{' '}
-            </Text>
-            <FontAwesome name="sliders" size={18} color={Colors.textColor} />
-          </HStack>
-        </Pressable> */}
+        </Pressable>
       </HStack>
-      {/*  Banner  */}
+
+      {isLoading && products.length === 0 ? (
+        <Box flex={1} justifyContent="center" alignItems="center">
+          <Spinner size="lg" />
+        </Box>
+      ) : (
+        <FlatList
+          data={products.slice(1)}
+          renderItem={renderProductItem}
+          keyExtractor={item => item.id.toString()}
+          numColumns={3}
+          contentContainerStyle={{paddingHorizontal: 12, paddingTop: 12}}
+          columnWrapperStyle={{justifyContent: 'space-between'}}
+          ListHeaderComponent={ListHeader}
+          ListEmptyComponent={ListEmpty}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
+
       <SortModal
-        setSortValue={setSortValue}
-        sort={sort}
-        onCloseSort={() => setSort(false)}
+        sort={isSortModalVisible}
+        onCloseSort={() => setSortModalVisible(false)}
         sortValue={sortValue}
+        setSortValue={setSortValue}
       />
       <CategoryModel
-        category={category}
-        onCloseCategory={() => setCategory(false)}
+        category={isCategoryModalVisible}
+        onCloseCategory={() => setCategoryModalVisible(false)}
         categoryValue={categoryValue}
         selectedCategory={setCategoryValue}
         categoryList={categoryList}
       />
       <PriceRangeModal
+        price={isPriceModalVisible}
+        onClosePrice={() => setPriceModalVisible(false)}
         setPriceRange={setPriceRange}
-        onClosePrice={() => setPrice(false)}
-        price={price}
       />
-
-      {currentResponse?.[0]?.images?.[0]?.src && loading == false && (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {currentResponse && currentResponse?.length > 0 && (
-            <Pressable
-              onPress={() =>
-                navigation.navigate('ProductDetail', {
-                  item: currentResponse?.[0],
-                })
-              }>
-              <Image
-                source={{uri: currentResponse?.[0]?.images?.[0]?.src}}
-                h={300}
-                w={'90%'}
-                alt={'no img'}
-                bg={'#FFF'}
-                resizeMode={'contain'}
-                alignSelf={'center'}
-              />
-              <Text
-                fontWeight={'600'}
-                fontSize={'md'}
-                color={'black'}
-                numberOfLines={1}
-                mt={1}
-                mx={5}>
-                {currentResponse?.[0]?.name}
-              </Text>
-              <Text
-                fontWeight={'500'}
-                fontSize={'sm'}
-                color={'black'}
-                numberOfLines={1}
-                mx={5}
-                mb={5}>
-                {`₹${currentResponse?.[0]?.variationProduct?.[0]?.price}`}{' '}
-              </Text>
-            </Pressable>
-          )}
-
-          <FlatList
-            data={currentResponse}
-            renderItem={renderProductItem}
-            numColumns={3}
-            mx={5}
-          />
-        </ScrollView>
-      )}
-
-      {!currentResponse && loading == false && (
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            fontWeight={'600'}
-            fontSize={'sm'}
-            color={'red.800'}
-            style={{
-              marginBottom: 50,
-            }}>
-            This category have no products yet!
-          </Text>
-        </View>
-      )}
-      <FilterModal open={open} onClose={() => setOpen(false)} />
     </Box>
   );
 };

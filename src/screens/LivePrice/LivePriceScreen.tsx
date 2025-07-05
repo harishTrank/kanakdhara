@@ -9,11 +9,13 @@ import {
   GOLD_API_KEY,
   SILVER_PRICE_URL,
 } from '../../lib/Constants';
+import { useGetCustomPriceApi } from '../../hooksQuery/Home/query';
 
 type Props = RootBottomTabScreenProps<'LivePrice'>;
 
 export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
   const [liveDataPrice, setLiveDataPrice] = useState<any[]>([]);
+  const getCustomPriceApi: any = useGetCustomPriceApi();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const renderItem = ({item, index}: any) => {
@@ -103,14 +105,13 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
       const goldData = goldResponse?.data;
       const silverData = silverResponse?.data;
       if (!goldData || !silverData || !goldData.price_gram_24k) {
-        console.log('API did not return valid gold or silver data.');
         return;
       }
 
-      const base24kPrice = Math.round(goldData.price_gram_24k * 10) + 6999;
+      const base24kPrice = Math.round(goldData.price_gram_24k * 10) + (Number(getCustomPriceApi?.data?.karat_24_price_addon) || 6999);
       const price22k = Math.round(base24kPrice * 0.916);
       const price18k = Math.round(base24kPrice * 0.75);
-      const price14k = Math.round(base24kPrice * 0.6); 
+      const price14k = Math.round(base24kPrice * 0.6);
       const silverPricePerKg = Math.round(silverData.price_gram_24k * 1100);
       setLiveDataPrice(oldValue => [
         {
@@ -162,7 +163,7 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
       liveApiPriceHandler();
       intervalRef.current = setInterval(() => {
         liveApiPriceHandler();
-      }, 5000); 
+      }, 5000);
     };
 
     const onBlur = () => {

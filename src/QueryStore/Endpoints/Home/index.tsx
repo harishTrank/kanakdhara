@@ -131,4 +131,11 @@ export const userEndPoints = {
       uri: 'checkout/orderlist',
     },
   },
+  getCustomPrice: {
+    v1: {
+      ...defaults.methods.GET,
+      ...defaults.versions.v1,
+      uri: '24k-pricing/',
+    },
+  },
 };

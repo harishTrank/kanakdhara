@@ -101,3 +101,8 @@ export const orderListApi = ({body}: any) =>
     uriEndPoint: userEndPoints.orderListApi.v1,
     body,
   });
+
+export const getCustomPriceApi = () =>
+  callApi({
+    uriEndPoint: userEndPoints.getCustomPrice.v1,
+  });

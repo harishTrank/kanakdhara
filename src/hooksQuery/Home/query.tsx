@@ -7,6 +7,7 @@ import {
   categoeryProduct,
   cartListApi,
   removeToCartApi,
+  getCustomPriceApi,
 } from '../../QueryStore/Services/Home';
 
 export const useOfferLayout = () => useQuery(['useOfferLayout'], offerLayout);
@@ -28,3 +29,6 @@ export const useCartListApi = (payload: any) =>
 
 export const useRemoveToCartApi = (payload: any) =>
   useQuery(['removeToCartApi'], () => removeToCartApi(payload));
+
+export const useGetCustomPriceApi = () =>
+  useQuery(['getCustomPriceApi'], () => getCustomPriceApi());
