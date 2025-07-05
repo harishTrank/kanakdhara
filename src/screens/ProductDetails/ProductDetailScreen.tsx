@@ -215,7 +215,7 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
             alignItems={'center'}>
             <Box>
               <Text fontWeight={'600'} fontSize={'lg'}>
-                {route?.params?.item?.slug}
+                {route?.params?.item?.name}
               </Text>
               <HStack>
                 <Text fontWeight={'500'} fontSize={'sm'} color={'#000'}>

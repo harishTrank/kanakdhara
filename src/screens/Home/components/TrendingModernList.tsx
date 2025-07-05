@@ -43,9 +43,9 @@ const TrendingModernList = ({TrendingList, navigation}: any) => {
               color={'#000'}
               w={160}
               numberOfLines={1}>
-              {item?.slug?.length > 15
-                ? `${item?.slug?.slice(0, 15)}...`
-                : item?.slug}
+              {item?.name?.length > 15
+                ? `${item?.name?.slice(0, 15)}...`
+                : item?.name}
             </Text>
 
             <View

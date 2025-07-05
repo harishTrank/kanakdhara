@@ -29,7 +29,7 @@ export const HomeHeader = () => {
             textAlign={'center'}
             fontWeight={'500'}
             fontSize={'sm'}>
-            24k gold price INR {Number(goldPrice)?.toFixed(2)}
+            24k gold price INR {Number(goldPrice)}/10gm
           </Text>
         )}
       </Box>
@@ -50,7 +50,7 @@ export const HomeHeader = () => {
         </Pressable> */}
         <TouchableOpacity
           onPress={() => navigation.toggleDrawer()}
-          style={{width: '15%'}}>
+          style={{width: '25%'}}>
           <Image
             source={require('../../../assets/icons/menuLine.png')}
             style={{
@@ -65,9 +65,9 @@ export const HomeHeader = () => {
           alignItems={'center'}
           p={2}>
           <Image
-            source={require('../../../assets/logo.png')}
-            w={6}
-            h={8}
+            source={require('../../../assets/new_logo.png')}
+            w={12}
+            h={12}
             resizeMode={'contain'}
             alt={'no img'}
           />

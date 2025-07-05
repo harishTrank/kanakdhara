@@ -107,7 +107,7 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
         return;
       }
 
-      const base24kPrice = Math.round(goldData.price_gram_24k * 10);
+      const base24kPrice = Math.round(goldData.price_gram_24k * 10) + 6999;
       const price22k = Math.round(base24kPrice * 0.916);
       const price18k = Math.round(base24kPrice * 0.75);
       const price14k = Math.round(base24kPrice * 0.6); 
@@ -162,7 +162,7 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
       liveApiPriceHandler();
       intervalRef.current = setInterval(() => {
         liveApiPriceHandler();
-      }, 1000); 
+      }, 5000); 
     };
 
     const onBlur = () => {

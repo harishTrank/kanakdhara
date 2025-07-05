@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {ScrollView, View} from 'react-native';
 import {HomeHeader} from './components/HomeHeader';
 import {useGetAllCategories} from '../../hooks/useGetAllCategories';
@@ -49,6 +49,7 @@ const HomeScreen = ({navigation}: any) => {
       featured: 'yes',
     },
   });
+
   return (
     <ScrollView
       style={{
@@ -140,7 +141,7 @@ const HomeScreen = ({navigation}: any) => {
 
         <SwiperFlatListView
           banner={offerBannerData?.data?.banner?.filter(
-            (item: any) => item?.name === 'coupon',
+            (item: any) => item?.name?.toLowerCase() === 'coupon',
           )}
         />
 

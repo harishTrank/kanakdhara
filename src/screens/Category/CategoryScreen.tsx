@@ -116,7 +116,7 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
             ?.filter((filterItem: any) =>
               filterItem?.categories?.some(
                 (someItem: any) =>
-                  someItem?.slug?.toLowerCase() === item?.slug?.toLowerCase(),
+                  someItem?.name?.toLowerCase() === item?.name?.toLowerCase(),
               ),
             )
             ?.slice(0, 4)}

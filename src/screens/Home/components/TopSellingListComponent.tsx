@@ -36,12 +36,12 @@ export const TopSellingRenderItem = (
       </Box>
       <Text fontWeight={'500'} fontSize={'sm'} color={'#000'}>
         {width === 160
-          ? item?.slug?.length > 15
-            ? `${item?.slug?.slice(0, 15)}...`
-            : item?.slug
-          : item?.slug?.length > 10
-          ? `${item?.slug?.slice(0, 10)}...`
-          : item?.slug}
+          ? item?.name?.length > 15
+            ? `${item?.name?.slice(0, 15)}...`
+            : item?.name
+          : item?.name?.length > 10
+          ? `${item?.name?.slice(0, 10)}...`
+          : item?.name}
       </Text>
       <View
         style={

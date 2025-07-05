@@ -94,7 +94,7 @@ export const ProductPageScreen: FC<Props> = ({route, navigation}: any) => {
           fontSize={'sm'}
           color={'black'}
           numberOfLines={1}>
-          {item?.slug}
+          {item?.name}
         </Text>
         <Text fontWeight={'400'} fontSize={'xs'} color={'black'}>
           {`₹${item?.variationProduct?.[0]?.price}`}
@@ -198,7 +198,7 @@ export const ProductPageScreen: FC<Props> = ({route, navigation}: any) => {
                 numberOfLines={1}
                 mt={1}
                 mx={5}>
-                {currentResponse?.[0]?.slug}
+                {currentResponse?.[0]?.name}
               </Text>
               <Text
                 fontWeight={'500'}

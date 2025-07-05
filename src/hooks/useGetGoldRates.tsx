@@ -29,8 +29,9 @@ export const useGetGoldRates = () => {
           fetch(GOLD_PRICE_URL, requestOptions)
             .then(response => response.text())
             .then(res => {
-              const goldDetails = JSON.parse(res);
-              setGoldPrice(goldDetails.price_gram_24k);
+              const goldDetails: any = JSON.parse(res);
+              const base24kPrice: any = Math.round(goldDetails.price_gram_24k * 10) + 6999;
+              setGoldPrice(base24kPrice);
               setIsLoading(false);
             })
             .catch(error => setMessage(error));
