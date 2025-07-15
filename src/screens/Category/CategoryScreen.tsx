@@ -1,6 +1,6 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useRef, useCallback} from 'react'; // Import useRef and useCallback
 import {Box, FlatList, HStack, Pressable, Text, VStack} from 'native-base';
-import {Dimensions, View} from 'react-native';
+import {Dimensions, View, NativeScrollEvent} from 'react-native'; // Import NativeScrollEvent for typing
 
 import {RootBottomTabScreenProps} from '../../navigation/types';
 import {HomeHeader} from '../Home/components/HomeHeader';
@@ -15,11 +15,16 @@ const HEIGHT = Dimensions.get('screen').height;
 const WIDTH = Dimensions.get('screen').width;
 
 export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
-  // const {categoryList}: any = useGetAllCategories();
   const [categoryList, setCategoryList]: any = useState([]);
   const [buttonClickFlag, setButtonClickFlag]: any = useState(false);
   const [select, setSelect] = useState('');
   const [refFlatList, setRefFlatList]: any = useState(null);
+
+  // --- NEW: Ref to track scroll type ---
+  // This ref helps us know if the scroll was triggered by the user swiping
+  // or by our code when a category is clicked.
+  const isUserScroll = useRef(true);
+
   const allCategoriesApi: any = useCategoeryProduct({
     query: {
       per_page: 200,
@@ -29,11 +34,19 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
   });
 
   const scrollToIndex = (item: string, index: number) => {
+    // --- MODIFIED: Set flag before programmatic scroll ---
+    // When we scroll programmatically, we set this to false so the onScroll handler doesn't
+    // try to update the selection while the animation is running.
+    isUserScroll.current = false;
+
     setSelect(item);
     refFlatList.scrollToIndex({
       animated: true,
       index: index,
     });
+
+    // Also update the buttonClickFlag for your existing logic
+    setButtonClickFlag(true);
   };
 
   useEffect(() => {
@@ -55,6 +68,7 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
       !buttonClickFlag
     ) {
       setTimeout(() => {
+        // Here we call the full scrollToIndex function to ensure the flags are set correctly
         scrollToIndex(route.params?.itemid, route.params?.index);
       }, 500);
     }
@@ -65,12 +79,37 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
     buttonClickFlag,
   ]);
 
+  // --- NEW: The scroll handler for the product list ---
+  const handleProductScroll = useCallback(
+    (event: {nativeEvent: NativeScrollEvent}) => {
+      // If the scroll was not initiated by the user, ignore it.
+      if (!isUserScroll.current) {
+        return;
+      }
+
+      const scrollPosition = event.nativeEvent.contentOffset.y;
+      const itemHeight = HEIGHT / 2; // This must match the length in getItemLayout
+
+      // Use Math.round to select the item that is covering the most of the top of the screen
+      const currentIndex = Math.round(scrollPosition / itemHeight);
+
+      // Check if the calculated index is valid and different from the current selection
+      if (
+        categoryList[currentIndex] &&
+        select !== categoryList[currentIndex].id
+      ) {
+        setSelect(categoryList[currentIndex].id);
+      }
+    },
+    [categoryList, select], // Dependencies: re-create this function if these change
+  );
+
   const renderItem = ({item, index}: any) => {
     return (
       <Pressable
         onPress={() => {
+          // This now calls the modified scrollToIndex function
           scrollToIndex(item.id, index);
-          setButtonClickFlag(true);
         }}
         bg={select === item.id ? '#f3f3f3' : 'white'}
         borderRightColor={select === item.id ? 'primary.400' : 'white'}
@@ -89,6 +128,7 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
       </Pressable>
     );
   };
+
   const renderProductItem = ({item, index}: any) => {
     return (
       <View style={{height: HEIGHT / 2}}>
@@ -97,13 +137,14 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
             fontWeight={'600'}
             fontSize={'md'}
             color={'black'}
-            textTransform={'capitalize'}></Text>
+            textTransform={'capitalize'}>
+            {/* Displaying the category name in the header */}
+            {item?.name}
+          </Text>
           <Pressable
-            onPress={() =>
-            {
+            onPress={() => {
               navigation.navigate('ProductPage', {itemId: item?.id});
-            }
-            }>
+            }}>
             <Text
               fontWeight={'500'}
               fontSize={'sm'}
@@ -181,6 +222,14 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
                 index,
               })}
               ref={setRefFlatList}
+              // --- NEW: Attach scroll handlers to the product list ---
+              onScroll={handleProductScroll}
+              // This is crucial. It tells React Native to fire the onScroll event frequently.
+              scrollEventThrottle={16}
+              // When the user starts dragging, we know it's a user scroll.
+              onScrollBeginDrag={() => {
+                isUserScroll.current = true;
+              }}
             />
           </Box>
         </VStack>
