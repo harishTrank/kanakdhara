@@ -20,12 +20,12 @@ import {
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import RenderHTML from 'react-native-render-html';
 
 import {RootStackScreenProps} from '../../navigation/types';
 import {Header} from '../../components/common/Header';
 import {Colors} from '../../utils/Colors';
 import {Home} from '../../components/svg';
-import {getDecimalPart} from '../../utils/userUtils';
 import FastImage from 'react-native-fast-image';
 import {useAddTocart} from '../../hooksQuery/Home/mutation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -35,6 +35,7 @@ import {TopSellingRenderItem} from '../Home/components/TopSellingListComponent';
 import axios from 'axios';
 import {store} from '../../store';
 import {Axios} from '../../lib/Axios';
+import {getProcessedHtml, tagsStyles} from '../../utils/userUtils';
 
 type Props = RootStackScreenProps<'ProductDetail'>;
 
@@ -258,7 +259,7 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
                     {item?.name || ''}
                   </Text>
                   <Text fontWeight={'500'} fontSize={'sm'} color={'#000'}>
-                    {item?.option || ''}
+                    {item?.option || ''}{item?.name === "Karat" && "K"}
                   </Text>
                 </View>
               );
@@ -278,15 +279,17 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
         )}
 
         <Text px={5} py={3} fontWeight={'600'} fontSize={'md'}>
-          Product Details
+          Description
         </Text>
-        <Text
-          px={5}
-          fontWeight={'500'}
-          color={Colors.textColor}
-          fontSize={'sm'}>
-          product details
-        </Text>
+        <Box px={5}>
+          <RenderHTML
+            contentWidth={WIDTH - 40} // Adjusted for horizontal padding
+            source={{
+              html: getProcessedHtml(route?.params?.item?.description),
+            }}
+            tagsStyles={tagsStyles}
+          />
+        </Box>
         {relatedList && relatedList.length !== 0 && (
           <>
             <Text px={5} py={3} fontWeight={'600'} fontSize={'md'}>

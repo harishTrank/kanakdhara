@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import {ScrollView, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Alert, Linking, ScrollView, View} from 'react-native';
 import {HomeHeader} from './components/HomeHeader';
 import {useGetAllCategories} from '../../hooks/useGetAllCategories';
 import CircularCardList from './components/CircularCardList';
@@ -20,6 +20,7 @@ import {
   useDazzlingCollection,
   useOfferLayout,
 } from '../../hooksQuery/Home/query';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const HomeScreen = ({navigation}: any) => {
   const {categoryList} = useGetAllCategories();
@@ -49,6 +50,20 @@ const HomeScreen = ({navigation}: any) => {
       featured: 'yes',
     },
   });
+
+const handlePress = async (appUrl: string, webUrl: string) => {
+  const canOpenApp = await Linking.canOpenURL(appUrl);
+  try {
+    if (canOpenApp) {
+      await Linking.openURL(appUrl);
+    } else {
+      await Linking.openURL(webUrl);
+    }
+  } catch (error) {
+    Alert.alert('Error', 'Could not open the link.');
+    console.error('Failed to open link:', error);
+  }
+};
 
   return (
     <ScrollView
@@ -180,24 +195,30 @@ const HomeScreen = ({navigation}: any) => {
             w={'48%'}
             px={5}
             py={3}>
-            <Image
-              source={require('../../assets/social/instagram.png')}
-              alt={'no img'}
-              w={8}
-              h={8}
-            />
+            <TouchableOpacity onPress={() => handlePress('instagram://user?username=durgajewellerssonipat',"https://www.instagram.com/durgajewellerssonipat/")}>
+              <Image
+                source={require('../../assets/social/instagram.png')}
+                alt={'no img'}
+                w={8}
+                h={8}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress("fb://page/durgajewellerssnp","https://www.facebook.com/durgajewellerssnp/")}>
             <Image
               source={require('../../assets/social/facebook.png')}
               alt={'no img'}
               w={8}
               h={8}
             />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress("https://durga-jewellers.co.in/", "https://durga-jewellers.co.in/")}>
             <Image
               source={require('../../assets/social/twitter.png')}
               alt={'no img'}
               w={8}
               h={8}
             />
+            </TouchableOpacity>
           </HStack>
         </View>
       </View>
