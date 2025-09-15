@@ -1,12 +1,17 @@
-import React, {FC, useState, useEffect, useRef, useCallback} from 'react'; // Import useRef and useCallback
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from 'react';
 import {Box, FlatList, HStack, Pressable, Text, VStack} from 'native-base';
-import {Dimensions, View, NativeScrollEvent} from 'react-native'; // Import NativeScrollEvent for typing
-
+import {Dimensions, View, NativeScrollEvent} from 'react-native';
 import {RootBottomTabScreenProps} from '../../navigation/types';
 import {HomeHeader} from '../Home/components/HomeHeader';
 import {useCategoeryProduct} from '../../hooksQuery/Home/query';
 import {TopSellingRenderItem} from '../Home/components/TopSellingListComponent';
-import {Colors} from '../../utils/Colors';
 import {getAllCategories} from '../../QueryStore/Services/Home';
 
 type Props = RootBottomTabScreenProps<'Category'>;
@@ -14,40 +19,34 @@ type Props = RootBottomTabScreenProps<'Category'>;
 const HEIGHT = Dimensions.get('screen').height;
 const WIDTH = Dimensions.get('screen').width;
 
+// heights
+const CATEGORY_HEADER_HEIGHT = 50;
+const SUBCATEGORY_SECTION_HEIGHT = HEIGHT / 2;
+
 export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
   const [categoryList, setCategoryList]: any = useState([]);
   const [buttonClickFlag, setButtonClickFlag]: any = useState(false);
   const [select, setSelect] = useState('');
-  const [refFlatList, setRefFlatList]: any = useState(null);
-
-  // --- NEW: Ref to track scroll type ---
-  // This ref helps us know if the scroll was triggered by the user swiping
-  // or by our code when a category is clicked.
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+    null,
+  );
+  const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<
+    number | null
+  >(null);
+  const refFlatList = useRef<any>(null);
   const isUserScroll = useRef(true);
+  const [expandedCategoryId, setExpandedCategoryId] = useState<number | null>(
+    null,
+  );
+  const leftFlatListRef = useRef<any>(null);
 
   const allCategoriesApi: any = useCategoeryProduct({
     query: {
-      per_page: 200,
+      per_page: 250,
       page: 1,
       sort: 'default',
     },
   });
-
-  const scrollToIndex = (item: string, index: number) => {
-    // --- MODIFIED: Set flag before programmatic scroll ---
-    // When we scroll programmatically, we set this to false so the onScroll handler doesn't
-    // try to update the selection while the animation is running.
-    isUserScroll.current = false;
-
-    setSelect(item);
-    refFlatList.scrollToIndex({
-      animated: true,
-      index: index,
-    });
-
-    // Also update the buttonClickFlag for your existing logic
-    setButtonClickFlag(true);
-  };
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
@@ -56,10 +55,106 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
           setCategoryList(res.data);
           setButtonClickFlag(false);
         })
-        .catch((err: any) => {});
+        .catch(() => {});
     });
   }, [navigation]);
 
+  // build right list (category header + subcategories)
+  const rightData = useMemo(() => {
+    const result: any[] = [];
+    const top = categoryList.filter((c: any) => c.parent === 0);
+    top.forEach((cat: any) => {
+      result.push({...cat, type: 'category'});
+      const subs = categoryList.filter((c: any) => c.parent === cat.id);
+      subs.forEach((sub: any) => {
+        result.push({...sub, type: 'subcategory', parent: cat.id});
+      });
+    });
+    return result;
+  }, [categoryList]);
+
+  // build left list
+  const leftData = useMemo(() => {
+    const result: any[] = [];
+    const top = categoryList.filter((c: any) => c.parent === 0);
+    top.forEach((cat: any) => {
+      result.push({...cat, type: 'category'});
+      if (expandedCategoryId === cat.id) {
+        const subs = categoryList.filter((c: any) => c.parent === cat.id);
+        subs.forEach((sub: any) => {
+          result.push({...sub, type: 'subcategory'});
+        });
+      }
+    });
+    return result;
+  }, [categoryList, expandedCategoryId]);
+
+  /** real getItemLayout for right list */
+  const getRightItemLayout = useCallback((data: any, index: number) => {
+    const item = data[index];
+    const length =
+      item.type === 'category'
+        ? CATEGORY_HEADER_HEIGHT
+        : SUBCATEGORY_SECTION_HEIGHT;
+    // compute offset up to index
+    const offset = data
+      .slice(0, index)
+      .reduce(
+        (sum: number, it: any) =>
+          sum +
+          (it.type === 'category'
+            ? CATEGORY_HEADER_HEIGHT
+            : SUBCATEGORY_SECTION_HEIGHT),
+        0,
+      );
+    return {length, offset, index};
+  }, []);
+
+  /** scroll exactly to index on right list */
+  const scrollToIndex = useCallback(
+    (
+      itemId: any,
+      index: number,
+      type: 'category' | 'subcategory' = 'category',
+      parentId?: number,
+    ) => {
+      isUserScroll.current = false;
+      setSelect(itemId);
+      if (type === 'category') {
+        setSelectedCategoryId(itemId);
+        setSelectedSubcategoryId(null);
+      } else {
+        // subcategory clicked
+        setSelectedCategoryId(parentId ?? null);
+        setSelectedSubcategoryId(itemId);
+      }
+
+      if (refFlatList.current) {
+        try {
+          // compute offset manually to always get perfect scroll
+          const offset = rightData
+            .slice(0, index)
+            .reduce(
+              (sum: number, it: any) =>
+                sum +
+                (it.type === 'category'
+                  ? CATEGORY_HEADER_HEIGHT
+                  : SUBCATEGORY_SECTION_HEIGHT),
+              0,
+            );
+          refFlatList.current.scrollToOffset({
+            offset,
+            animated: true,
+          });
+        } catch {}
+      }
+
+      setButtonClickFlag(true);
+    },
+    [rightData],
+  );
+
+  // auto-scroll to param id
   useEffect(() => {
     if (
       route.params?.itemid &&
@@ -68,132 +163,223 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
       !buttonClickFlag
     ) {
       setTimeout(() => {
-        // Here we call the full scrollToIndex function to ensure the flags are set correctly
-        scrollToIndex(route.params?.itemid, route.params?.index);
+        const idx = rightData.findIndex(
+          (cat: any) => cat.id === route.params?.itemid,
+        );
+        if (idx >= 0) {
+          scrollToIndex(route.params?.itemid, idx);
+        }
       }, 500);
     }
   }, [
     allCategoriesApi,
     route.params?.itemid,
-    route.params?.index,
     buttonClickFlag,
+    rightData,
+    scrollToIndex,
   ]);
 
-  // --- NEW: The scroll handler for the product list ---
+  /** sync left list highlight while scrolling right list */
   const handleProductScroll = useCallback(
     (event: {nativeEvent: NativeScrollEvent}) => {
-      // If the scroll was not initiated by the user, ignore it.
-      if (!isUserScroll.current) {
-        return;
+      if (!isUserScroll.current) return;
+      const scrollY = event.nativeEvent.contentOffset.y;
+
+      // find current index by cumulative height
+      let cumulative = 0;
+      let currentIndex = 0;
+      for (let i = 0; i < rightData.length; i++) {
+        const h =
+          rightData[i].type === 'category'
+            ? CATEGORY_HEADER_HEIGHT
+            : SUBCATEGORY_SECTION_HEIGHT;
+        if (scrollY < cumulative + h) {
+          currentIndex = i;
+          break;
+        }
+        cumulative += h;
       }
 
-      const scrollPosition = event.nativeEvent.contentOffset.y;
-      const itemHeight = HEIGHT / 2; // This must match the length in getItemLayout
+      const currentItem = rightData[currentIndex];
+      if (!currentItem) return;
 
-      // Use Math.round to select the item that is covering the most of the top of the screen
-      const currentIndex = Math.round(scrollPosition / itemHeight);
-
-      // Check if the calculated index is valid and different from the current selection
-      if (
-        categoryList[currentIndex] &&
-        select !== categoryList[currentIndex].id
-      ) {
-        setSelect(categoryList[currentIndex].id);
+      if (currentItem.type === 'subcategory') {
+        const parentId = currentItem.parent ?? null;
+        setSelectedCategoryId(parentId);
+        setSelectedSubcategoryId(currentItem.id);
+        if (parentId && expandedCategoryId !== parentId) {
+          setExpandedCategoryId(parentId);
+          const topList = categoryList.filter((c: any) => c.parent === 0);
+          const parentTopIndex = topList.findIndex(
+            (t: any) => t.id === parentId,
+          );
+          if (parentTopIndex >= 0) {
+            setTimeout(() => {
+              leftFlatListRef.current?.scrollToIndex({
+                index: parentTopIndex,
+                animated: true,
+                viewPosition: 0,
+              });
+            }, 80);
+          }
+        }
+        if (select !== parentId) {
+          setSelect(parentId);
+          setSelectedCategoryId(parentId);
+          setSelectedSubcategoryId(null);
+        }
+      } else {
+        setSelectedCategoryId(currentItem.id);
+        setSelectedSubcategoryId(null);
+        if (expandedCategoryId !== currentItem.id) {
+          setExpandedCategoryId(null);
+        }
+        const topList = categoryList.filter((c: any) => c.parent === 0);
+        const topIndex = topList.findIndex((t: any) => t.id === currentItem.id);
+        if (topIndex >= 0) {
+          leftFlatListRef.current?.scrollToIndex({
+            index: topIndex,
+            animated: true,
+            viewPosition: 0,
+          });
+        }
+        if (select !== currentItem.id) {
+          setSelect(currentItem.id);
+        }
       }
     },
-    [categoryList, select], // Dependencies: re-create this function if these change
+    [rightData, categoryList, select, expandedCategoryId],
   );
 
-  const renderItem = ({item, index}: any) => {
-    return (
-      <Pressable
-        onPress={() => {
-          // This now calls the modified scrollToIndex function
-          scrollToIndex(item.id, index);
-        }}
-        bg={select === item.id ? '#f3f3f3' : 'white'}
-        borderRightColor={select === item.id ? 'primary.400' : 'white'}
-        borderRightWidth={select === item.id ? 2 : 0}
-        alignItems={'center'}
-        mb={2}
-        p={2}
-        mt={index === 0 ? 3 : 0}>
-        <Text
-          fontWeight={'500'}
-          fontSize={'sm'}
-          color={'#4A4A4A'}
-          textTransform={'capitalize'}>
-          {item.name}
-        </Text>
-      </Pressable>
-    );
+  /** left item */
+  const renderLeftItem = ({item, index}: any) => {
+    if (item.type === 'category') {
+      const isSelected = selectedCategoryId === item.id;
+      return (
+        <Pressable
+          onPress={() => {
+            setExpandedCategoryId(prev => (prev === item.id ? null : item.id));
+            const idx = rightData.findIndex(
+              (r: any) => r.id === item.id && r.type === 'category',
+            );
+            if (idx >= 0) {
+              scrollToIndex(item.id, idx, 'category');
+            }
+            leftFlatListRef.current?.scrollToIndex({
+              index,
+              animated: true,
+              viewPosition: 0,
+            });
+          }}
+          bg={isSelected ? '#dbeafe' : 'white'}
+          borderRightColor={isSelected ? 'primary.400' : 'white'}
+          borderRightWidth={isSelected ? 3 : 0}
+          alignItems={'center'}
+          mb={2}
+          p={2}>
+          <Text fontWeight="500" fontSize="sm" color="#4A4A4A">
+            {item.name}
+          </Text>
+        </Pressable>
+      );
+    } else {
+      const isSelected = selectedSubcategoryId === item.id;
+      return (
+        <Pressable
+          onPress={() => {
+            const idx = rightData.findIndex(
+              (r: any) => r.id === item.id && r.type === 'subcategory',
+            );
+            if (idx >= 0) {
+              const parentId =
+                categoryList.find((c: any) => c.id === item.id)?.parent ??
+                undefined;
+              scrollToIndex(item.id, idx, 'subcategory', parentId);
+            }
+          }}
+          bg={isSelected ? '#eef6ff' : '#fafafa'}
+          borderLeftWidth={3}
+          borderLeftColor={isSelected ? 'primary.400' : '#ddd'}
+          alignItems={'flex-start'}
+          mb={1}
+          p={2}
+          pl={5}>
+          <Text fontSize="xs" color="#555">
+            {item.name}
+          </Text>
+        </Pressable>
+      );
+    }
   };
 
-  const renderProductItem = ({item, index}: any) => {
-    return (
-      <View style={{height: HEIGHT / 2}}>
-        <HStack justifyContent={'space-between'} my={3}>
-          <Text
-            fontWeight={'600'}
-            fontSize={'md'}
-            color={'black'}
-            textTransform={'capitalize'}>
-            {/* Displaying the category name in the header */}
-            {item?.name}
-          </Text>
-          <Pressable
-            onPress={() => {
-              navigation.navigate('ProductPage', {itemId: item?.id});
-            }}>
+  /** right item */
+  const renderProductItem = ({item}: any) => {
+    if (item.type === 'category') {
+      return (
+        <View
+          style={{height: CATEGORY_HEADER_HEIGHT, justifyContent: 'center'}}>
+          <HStack justifyContent={'space-between'}>
             <Text
-              fontWeight={'500'}
-              fontSize={'sm'}
-              color={'primary.400'}
-              textDecorationLine={'underline'}>
-              View All{' '}
+              fontWeight={'700'}
+              fontSize={'md'}
+              color={'black'}
+              textTransform={'capitalize'}>
+              {item?.name}
             </Text>
-          </Pressable>
-        </HStack>
-        <FlatList
-          data={allCategoriesApi?.data?.data
-            ?.filter((filterItem: any) =>
-              filterItem?.categories?.some(
-                (someItem: any) =>
-                  someItem?.name?.toLowerCase() === item?.name?.toLowerCase(),
-              ),
-            )
-            ?.slice(0, 4)}
-          renderItem={({item}: any) =>
-            TopSellingRenderItem(item, navigation, HEIGHT * 0.13, WIDTH * 0.3)
-          }
-          numColumns={2}
-          keyExtractor={(item: any) => `${item.id}${Math.random()}`}
-          ListEmptyComponent={() => {
-            return (
-              <View
-                style={{
-                  height: HEIGHT / 2.5,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{
-                    color: Colors.iconColor,
-                    fontSize: 12,
-                  }}>
-                  There is no item in that category.
-                </Text>
-              </View>
-            );
-          }}
-        />
-      </View>
-    );
+          </HStack>
+        </View>
+      );
+    } else {
+      return (
+        <View style={{height: SUBCATEGORY_SECTION_HEIGHT}}>
+          <HStack justifyContent={'space-between'} my={3}>
+            <Text
+              fontWeight={'600'}
+              fontSize={'sm'}
+              color={'black'}
+              textTransform={'capitalize'}>
+              {item?.name}
+            </Text>
+            <Pressable
+              onPress={() =>
+                navigation.navigate('ProductPage', {itemId: item?.id})
+              }>
+              <Text
+                fontWeight={'500'}
+                fontSize={'sm'}
+                color={'primary.400'}
+                textDecorationLine={'underline'}>
+                View All
+              </Text>
+            </Pressable>
+          </HStack>
+
+          <FlatList
+            data={allCategoriesApi?.data?.data
+              ?.filter((filterItem: any) =>
+                filterItem?.categories?.some(
+                  (someItem: any) =>
+                    someItem?.name?.toLowerCase() === item?.name?.toLowerCase(),
+                ),
+              )
+              ?.slice(0, 4)}
+            renderItem={({item: p}: any) =>
+              TopSellingRenderItem(p, navigation, HEIGHT * 0.13, WIDTH * 0.3)
+            }
+            numColumns={2}
+            keyExtractor={(p: any) => `${p.id}${Math.random()}`}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={null}
+          />
+        </View>
+      );
+    }
   };
+
   return (
     <Box bg={'white'} flex={1}>
       <HomeHeader />
-      <HStack w={'100%'}>
+      <HStack w={'100%'} flex={1}>
         <Box
           bg={'white'}
           w={'30%'}
@@ -201,37 +387,40 @@ export const CategoryScreen: FC<Props> = ({navigation, route}: any) => {
           borderRightWidth={1}
           borderRightColor={'#f0f5f9'}>
           <FlatList
-            data={categoryList}
-            renderItem={renderItem}
-            keyExtractor={(item: any) => item.id}
-            style={{
-              marginBottom: HEIGHT * 0.25,
+            ref={leftFlatListRef}
+            data={leftData}
+            renderItem={renderLeftItem}
+            keyExtractor={(item: any, idx) => `${item.id}-${idx}`}
+            showsVerticalScrollIndicator={false}
+            getItemLayout={(data: any, index: any) => {
+              const item = data[index];
+              const length =
+                item.type === 'category'
+                  ? CATEGORY_HEADER_HEIGHT
+                  : CATEGORY_HEADER_HEIGHT; // left list rows are small
+              const offset = index * length;
+              return {length, offset, index};
             }}
           />
         </Box>
+
         <VStack bg={'white'} w={'70%'} p={3}>
-          <Box mb={200}>
-            <FlatList
-              data={categoryList}
-              renderItem={renderProductItem}
-              keyExtractor={(item: any) => item.id}
-              showsVerticalScrollIndicator={false}
-              getItemLayout={(data, index) => ({
-                length: HEIGHT / 2,
-                offset: (HEIGHT / 2) * index,
-                index,
-              })}
-              ref={setRefFlatList}
-              // --- NEW: Attach scroll handlers to the product list ---
-              onScroll={handleProductScroll}
-              // This is crucial. It tells React Native to fire the onScroll event frequently.
-              scrollEventThrottle={16}
-              // When the user starts dragging, we know it's a user scroll.
-              onScrollBeginDrag={() => {
-                isUserScroll.current = true;
-              }}
-            />
-          </Box>
+          <FlatList
+            data={rightData}
+            renderItem={renderProductItem}
+            keyExtractor={(item: any, idx) => `${item.type}-${item.id}-${idx}`}
+            showsVerticalScrollIndicator={false}
+            getItemLayout={getRightItemLayout}
+            ref={refFlatList}
+            onScroll={handleProductScroll}
+            scrollEventThrottle={16}
+            onScrollBeginDrag={() => {
+              isUserScroll.current = true;
+            }}
+            onMomentumScrollEnd={() => {
+              isUserScroll.current = true;
+            }}
+          />
         </VStack>
       </HStack>
     </Box>
