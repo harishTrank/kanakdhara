@@ -42,10 +42,11 @@ export const customSearch = ({body}: any) =>
     body,
   });
 
-export const getSingleProduct = ({body}: any) =>
+export const getSingleProduct = ({body, query}: any) =>
   callApi({
     uriEndPoint: userEndPoints.getSingleProduct.v1,
     body,
+    query,
   });
 
 export const categoeryProduct = ({query}: any) =>
@@ -105,4 +106,15 @@ export const orderListApi = ({body}: any) =>
 export const getCustomPriceApi = () =>
   callApi({
     uriEndPoint: userEndPoints.getCustomPrice.v1,
+  });
+
+export const deleteAccountApi = ({body}: any) =>
+  callApi({
+    uriEndPoint: userEndPoints.deleteAccountApi.v1,
+    body,
+  });
+export const getChildCategoryProducts = ({query}: any) =>
+  callApi({
+    uriEndPoint: userEndPoints.getChildCategoryProducts.v1,
+    query,
   });

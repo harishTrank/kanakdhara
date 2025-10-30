@@ -3,7 +3,7 @@ import {Animated, StyleSheet, TouchableOpacity} from 'react-native';
 import {CurvedBottomBarExpo} from 'react-native-curved-bottom-bar';
 import HomeScreen from '../screens/Home/HomeScreen';
 import {CommitteeScreen} from '../screens/Committee';
-import {CategoryScreen} from '../screens/Category';
+import {CategoryScreenN} from '../screens/Category';
 import {SupportScreen} from '../screens/Support';
 import {LivePriceScreen} from '../screens/LivePrice';
 
@@ -149,7 +149,7 @@ export default function BottomTabNavigation() {
       <CurvedBottomBarExpo.Screen
         name="Category"
         position="LEFT"
-        component={CategoryScreen}
+        component={CategoryScreenN}
       />
       <CurvedBottomBarExpo.Screen
         name="Committee"

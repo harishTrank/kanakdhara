@@ -138,4 +138,18 @@ export const userEndPoints = {
       uri: '24k-pricing/',
     },
   },
+  deleteAccountApi: {
+    v1: {
+      ...defaults.methods.POST,
+      ...defaults.versions.v1,
+      uri: 'delete-account/',
+    },
+  },
+  getChildCategoryProducts: {
+    v1: {
+      ...defaults.methods.GET,
+      ...defaults.versions.v1,
+      uri: 'products/child-category-products/',
+    },
+  },
 };

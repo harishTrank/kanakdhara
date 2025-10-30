@@ -259,7 +259,8 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
                     {item?.name || ''}
                   </Text>
                   <Text fontWeight={'500'} fontSize={'sm'} color={'#000'}>
-                    {item?.option || ''}{item?.name === "Karat" && "K"}
+                    {item?.option || ''}
+                    {item?.name === 'Karat' && 'K'}
                   </Text>
                 </View>
               );

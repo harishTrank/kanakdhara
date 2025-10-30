@@ -17,6 +17,8 @@ import {CommitteeDetailScreen} from '../screens/CommitteeDetails';
 import {QuizScreen} from '../screens/Quiz';
 import {UpdatePasswordScreen} from '../screens/UpdatePassword';
 import PaymentScreen from '../screens/PaymentScreen';
+import {ChildCategory} from '../screens/Category/ChildCategory';
+import {AuthStackNavigation} from './AuthStackNavigation';
 
 const Stack: any = createNativeStackNavigator<RootStackParams>();
 
@@ -24,6 +26,7 @@ export const RootStackNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="BottomTabs" component={BottomTabNavigation} />
+      <Stack.Screen name="AuthStack" component={AuthStackNavigation} />
       <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="ProductPage" component={ProductPageScreen} />
@@ -36,6 +39,7 @@ export const RootStackNavigation = () => {
       <Stack.Screen name="quiz" component={QuizScreen} />
       <Stack.Screen name="updatePassword" component={UpdatePasswordScreen} />
       <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+      <Stack.Screen name="ChildCategory" component={ChildCategory} />
       <Stack.Screen
         name="PaymentConfirmation"
         component={PaymentConfirmationScreen}

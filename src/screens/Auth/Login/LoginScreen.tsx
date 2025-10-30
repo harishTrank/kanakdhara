@@ -136,7 +136,7 @@ export const LoginScreen: FC<Props> = ({navigation}: any) => {
           );
         }}
       </Formik>
-      <Box position={'absolute'} bottom={12} left={0} right={0}>
+      {/* <Box position={'absolute'} bottom={12} left={0} right={0}>
         <Text
           fontWeight={'500'}
           color={Colors.textColor}
@@ -153,7 +153,7 @@ export const LoginScreen: FC<Props> = ({navigation}: any) => {
           textAlign={'center'}>
           you can <Text color={'primary.400'}>Explore as Guest!</Text>
         </Text>
-      </Box>
+      </Box> */}
     </AuthLayout>
   );
 };

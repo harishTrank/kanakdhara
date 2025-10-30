@@ -1,1 +1,1 @@
-export * from './CategoryScreen';
+export * from './CategoryScreenN';
