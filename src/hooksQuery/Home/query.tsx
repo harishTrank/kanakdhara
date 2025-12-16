@@ -10,25 +10,56 @@ import {
   getCustomPriceApi,
 } from '../../QueryStore/Services/Home';
 
-export const useOfferLayout = () => useQuery(['useOfferLayout'], offerLayout);
+export const useOfferLayout = () =>
+  useQuery({
+    queryKey: ['useOfferLayout'],
+    queryFn: offerLayout,
+  });
 
 export const useDazzlingCollection = (payload: any) =>
-  useQuery(['dazzlingCollection'], () => dazzlingCollection(payload));
+  useQuery({
+    queryKey: ['dazzlingCollection', payload],
+    queryFn: () => dazzlingCollection(payload),
+    enabled: !!payload,
+  });
 
 export const useAllProducts = (payload: any) =>
-  useQuery(['allProducts'], () => allProducts(payload));
+  useQuery({
+    queryKey: ['allProducts', payload],
+    queryFn: () => allProducts(payload),
+    enabled: !!payload,
+  });
 
 export const useCustomerProducts = (payload: any) =>
-  useQuery(['customerProducts'], () => customerProducts(payload));
+  useQuery({
+    queryKey: ['customerProducts', payload],
+    queryFn: () => customerProducts(payload),
+    enabled: !!payload,
+  });
 
 export const useCategoeryProduct = (payload: any) =>
-  useQuery(['categoeryProduct'], () => categoeryProduct(payload));
+  useQuery({
+    queryKey: ['categoeryProduct', payload],
+    queryFn: () => categoeryProduct(payload),
+    enabled: !!payload,
+  });
 
 export const useCartListApi = (payload: any) =>
-  useQuery(['cartListApi'], () => cartListApi(payload));
+  useQuery({
+    queryKey: ['cartListApi', payload],
+    queryFn: () => cartListApi(payload),
+    enabled: !!payload,
+  });
 
 export const useRemoveToCartApi = (payload: any) =>
-  useQuery(['removeToCartApi'], () => removeToCartApi(payload));
+  useQuery({
+    queryKey: ['removeToCartApi', payload],
+    queryFn: () => removeToCartApi(payload),
+    enabled: !!payload,
+  });
 
 export const useGetCustomPriceApi = () =>
-  useQuery(['getCustomPriceApi'], () => getCustomPriceApi());
+  useQuery({
+    queryKey: ['getCustomPriceApi'],
+    queryFn: getCustomPriceApi,
+  });

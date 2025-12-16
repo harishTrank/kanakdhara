@@ -18,6 +18,7 @@ import {Colors} from '../utils/Colors';
 import {CustomDrawerContent} from './components/CustomDrawerContent';
 import {AddressScreen} from '../screens/Address';
 import {OrderListScreen} from '../screens/PreviousOrders/OrderList';
+import DigitalGold from '../screens/DigitalGold';
 
 const Drawer = createDrawerNavigator<DrawerStackParams>();
 
@@ -68,6 +69,20 @@ export function DrawerNavigation() {
           },
           drawerIcon: ({size}) => (
             <Ionicons name="location" size={size} color={Colors.primary} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="DigitalGold"
+        component={DigitalGold}
+        options={{
+          drawerLabel: 'Buy Digital Gold',
+          drawerLabelStyle: {
+            fontFamily: 'Montserrat-SemiBold',
+            fontSize: 16,
+          },
+          drawerIcon: ({size}) => (
+            <Ionicons name="person-sharp" size={size} color={Colors.primary} />
           ),
         }}
       />

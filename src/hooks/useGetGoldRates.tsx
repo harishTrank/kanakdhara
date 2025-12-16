@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 
 import {useMessage} from './useMessage';
 import {GOLD_API_KEY, GOLD_API_STATUS, GOLD_PRICE_URL} from '../lib/Constants';
-import { useGetCustomPriceApi } from '../hooksQuery/Home/query';
+import {useGetCustomPriceApi} from '../hooksQuery/Home/query';
 
 export const useGetGoldRates = () => {
   const setMessage = useMessage();
@@ -16,7 +16,7 @@ export const useGetGoldRates = () => {
     myHeaders.append('x-access-token', GOLD_API_KEY);
     myHeaders.append('Content-Type', 'application/json');
 
-    const requestOptions = {
+    const requestOptions: any = {
       method: 'GET',
       headers: myHeaders,
       redirect: 'follow',
@@ -32,7 +32,9 @@ export const useGetGoldRates = () => {
             .then(response => response.text())
             .then(res => {
               const goldDetails: any = JSON.parse(res);
-              const base24kPrice: any = Math.round(goldDetails.price_gram_24k * 10) + (Number(getCustomPriceApi?.data?.karat_24_price_addon) || 6999);
+              const base24kPrice: any =
+                Math.round(goldDetails.price_gram_24k * 10) +
+                (Number(getCustomPriceApi?.data?.karat_24_price_addon) || 6999);
               setGoldPrice(base24kPrice);
               setIsLoading(false);
             })
@@ -49,6 +51,16 @@ export const useGetGoldRates = () => {
   useEffect(() => {
     getGoldRates();
   }, []);
+
+  // useEffect(() => {
+  //   getGoldRates();
+
+  //   const interval = setInterval(() => {
+  //     getGoldRates();
+  //   }, 100000); // 10 seconds
+
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return {
     goldPrice,

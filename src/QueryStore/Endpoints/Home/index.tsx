@@ -152,4 +152,11 @@ export const userEndPoints = {
       uri: 'products/child-category-products/',
     },
   },
+  digitalGoldPay: {
+    v1: {
+      ...defaults.methods.GET,
+      ...defaults.versions.v1,
+      uri: 'gold-pay/',
+    },
+  },
 };

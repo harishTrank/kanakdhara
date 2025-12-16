@@ -1,0 +1,27 @@
+import { useEffect } from 'react';
+import { BackHandler } from 'react-native';
+
+export function useBackHandler({ enabled, callback }) {
+  useEffect(() => {
+    const backHandler = () => {
+      callback?.();
+      return true;
+    };
+
+    let subscription;
+
+    if (enabled) {
+      subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backHandler
+      );
+    }
+
+    return () => {
+      // ✅ modern React Native cleanup (RN 0.71+)
+      if (subscription && typeof subscription.remove === 'function') {
+        subscription.remove();
+      }
+    };
+  }, [enabled, callback]);
+}

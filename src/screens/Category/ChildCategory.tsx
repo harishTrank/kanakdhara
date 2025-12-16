@@ -21,6 +21,7 @@ import {
 } from '../../QueryStore/Services/Home';
 import FullScreenLoader from '../../components/FullScreenLoader';
 import {Themes} from '../../utils/Colors';
+import {Header} from '../../components/common/Header';
 
 type Props = RootStackScreenProps<'ProductPage'>;
 
@@ -112,8 +113,8 @@ export const ChildCategory: FC<Props> = ({navigation, route}: any) => {
               {item.price
                 ? `₹ ${item.price}`
                 : item.regular_price
-                ? `₹ ${item.regular_price}`
-                : 'View price'}
+                  ? `₹ ${item.regular_price}`
+                  : 'View price'}
             </Text>
           </Box>
         </VStack>
@@ -122,137 +123,140 @@ export const ChildCategory: FC<Props> = ({navigation, route}: any) => {
   };
   // filter -> purity-14, 18, 22, 24, min_price, max_price, sort- asc, desc, gender- male, female
   return (
-    <Box bg="white" flex={1}>
-      {loading && <FullScreenLoader />}
+    <>
+      <Header heading={categoryName} />
+      <Box bg="white" flex={1}>
+        {loading && <FullScreenLoader />}
 
-      <HStack
-        alignItems="center"
-        p={4}
-        borderBottomWidth={1}
-        borderColor="#eee">
-        <Pressable onPress={() => navigation.goBack()}>
-          <Text color="#555">Back</Text>
-        </Pressable>
-        <VStack ml={4}>
-          <Text fontSize="lg" fontWeight="700">
-            {categoryName}
-          </Text>
-          <Text fontSize="xs" color="#777">
-            {products.length} items
-          </Text>
+        {/* <HStack
+          alignItems="center"
+          p={4}
+          borderBottomWidth={1}
+          borderColor="#eee">
+          <Pressable onPress={() => navigation.goBack()}>
+            <Text color="#555">Back</Text>
+          </Pressable>
+          <VStack ml={4}>
+            <Text fontSize="lg" fontWeight="700">
+              {categoryName}
+            </Text>
+            <Text fontSize="xs" color="#777">
+              {products.length} items
+            </Text>
+          </VStack>
+        </HStack> */}
+
+        <VStack px={3} py={2} bg="#fafafa" space={2}>
+          <HStack justifyContent="space-between">
+            {/* Purity Filter */}
+            <Box w="24%" style={styles.filterOuter}>
+              <Select
+                style={styles.filterBox}
+                selectedValue={filters.purity}
+                placeholder="Purity    ▼"
+                placeholderTextColor="#7a2b2b"
+                dropdownIcon={<></>}
+                borderWidth={0}
+                variant="unstyled"
+                onValueChange={(val: any) =>
+                  setFilters((prev: any) => ({...prev, purity: val}))
+                }>
+                <Select.Item label="Purity    ▼" value="" />
+                <Select.Item label="14K" value="14" />
+                <Select.Item label="18K" value="18" />
+                <Select.Item label="22K" value="22" />
+                <Select.Item label="24K" value="24" />
+              </Select>
+            </Box>
+
+            {/* Gender Filter */}
+            <Box w="24%" style={styles.filterOuter}>
+              <Select
+                style={styles.filterBox}
+                selectedValue={filters.gender}
+                placeholder="Gender     ▼"
+                placeholderTextColor="#7a2b2b"
+                dropdownIcon={<></>}
+                borderWidth={0}
+                variant="unstyled"
+                onValueChange={(val: any) =>
+                  setFilters((prev: any) => ({...prev, gender: val}))
+                }>
+                <Select.Item label="Gender     ▼" value="" />
+                <Select.Item label="Male" value="male" />
+                <Select.Item label="Female" value="female" />
+              </Select>
+            </Box>
+
+            {/* Sort Filter */}
+            <Box w="24%" style={styles.filterOuter}>
+              <Select
+                style={styles.filterBox}
+                selectedValue={filters.sort}
+                placeholder="Sort    ▼"
+                placeholderTextColor="#7a2b2b"
+                dropdownIcon={<></>}
+                borderWidth={0}
+                variant="unstyled"
+                onValueChange={(val: any) =>
+                  setFilters((prev: any) => ({...prev, sort: val}))
+                }>
+                <Select.Item label="Sort    ▼" value="" />
+                <Select.Item label="Low to High" value="asc" />
+                <Select.Item label="High to Low" value="desc" />
+              </Select>
+            </Box>
+
+            {/* Price Range Filter */}
+            <Box w="24%" style={styles.filterOuter}>
+              <Select
+                style={styles.filterBox}
+                selectedValue={filters.price_range}
+                placeholder="Price    ▼"
+                placeholderTextColor="#7a2b2b"
+                dropdownIcon={<></>}
+                borderWidth={0}
+                variant="unstyled"
+                onValueChange={(val: string) => {
+                  const [min, max] = val.split('-');
+                  setFilters((prev: any) => ({
+                    ...prev,
+                    min_price: min,
+                    max_price: max,
+                    price_range: val,
+                  }));
+                }}>
+                <Select.Item label="Price    ▼" value="" />
+                <Select.Item label="₹0 - ₹25,000" value="0-25000" />
+                <Select.Item label="₹25,000 - ₹50,000" value="25000-50000" />
+                <Select.Item label="₹50,000 - ₹1,00,000" value="50000-100000" />
+                <Select.Item
+                  label="₹1,00,000 - ₹1,000,000,000"
+                  value="100000-1000000000"
+                />
+              </Select>
+            </Box>
+          </HStack>
         </VStack>
-      </HStack>
 
-      <VStack px={3} py={2} bg="#fafafa" space={2}>
-        <HStack justifyContent="space-between">
-          {/* Purity Filter */}
-          <Box w="24%" style={styles.filterOuter}>
-            <Select
-              style={styles.filterBox}
-              selectedValue={filters.purity}
-              placeholder="Purity    ▼"
-              placeholderTextColor="#7a2b2b"
-              dropdownIcon={<></>}
-              borderWidth={0}
-              variant="unstyled"
-              onValueChange={(val: any) =>
-                setFilters((prev: any) => ({...prev, purity: val}))
-              }>
-              <Select.Item label="Purity    ▼" value="" />
-              <Select.Item label="14K" value="14" />
-              <Select.Item label="18K" value="18" />
-              <Select.Item label="22K" value="22" />
-              <Select.Item label="24K" value="24" />
-            </Select>
-          </Box>
-
-          {/* Gender Filter */}
-          <Box w="24%" style={styles.filterOuter}>
-            <Select
-              style={styles.filterBox}
-              selectedValue={filters.gender}
-              placeholder="Gender     ▼"
-              placeholderTextColor="#7a2b2b"
-              dropdownIcon={<></>}
-              borderWidth={0}
-              variant="unstyled"
-              onValueChange={(val: any) =>
-                setFilters((prev: any) => ({...prev, gender: val}))
-              }>
-              <Select.Item label="Gender     ▼" value="" />
-              <Select.Item label="Male" value="male" />
-              <Select.Item label="Female" value="female" />
-            </Select>
-          </Box>
-
-          {/* Sort Filter */}
-          <Box w="24%" style={styles.filterOuter}>
-            <Select
-              style={styles.filterBox}
-              selectedValue={filters.sort}
-              placeholder="Sort    ▼"
-              placeholderTextColor="#7a2b2b"
-              dropdownIcon={<></>}
-              borderWidth={0}
-              variant="unstyled"
-              onValueChange={(val: any) =>
-                setFilters((prev: any) => ({...prev, sort: val}))
-              }>
-              <Select.Item label="Sort    ▼" value="" />
-              <Select.Item label="Low to High" value="asc" />
-              <Select.Item label="High to Low" value="desc" />
-            </Select>
-          </Box>
-
-          {/* Price Range Filter */}
-          <Box w="24%" style={styles.filterOuter}>
-            <Select
-              style={styles.filterBox}
-              selectedValue={filters.price_range}
-              placeholder="Price    ▼"
-              placeholderTextColor="#7a2b2b"
-              dropdownIcon={<></>}
-              borderWidth={0}
-              variant="unstyled"
-              onValueChange={(val: string) => {
-                const [min, max] = val.split('-');
-                setFilters((prev: any) => ({
-                  ...prev,
-                  min_price: min,
-                  max_price: max,
-                  price_range: val,
-                }));
-              }}>
-              <Select.Item label="Price    ▼" value="" />
-              <Select.Item label="₹0 - ₹25,000" value="0-25000" />
-              <Select.Item label="₹25,000 - ₹50,000" value="25000-50000" />
-              <Select.Item label="₹50,000 - ₹1,00,000" value="50000-100000" />
-              <Select.Item
-                label="₹1,00,000 - ₹1,000,000,000"
-                value="100000-1000000000"
-              />
-            </Select>
-          </Box>
-        </HStack>
-      </VStack>
-
-      <Box p={3} paddingBottom={130}>
-        {products.length === 0 ? (
-          <Center mt={20}>
-            <Text>No products found for this category.</Text>
-          </Center>
-        ) : (
-          <FlatList
-            data={products}
-            numColumns={2}
-            columnWrapperStyle={{justifyContent: 'space-between'}}
-            renderItem={renderProductCard}
-            keyExtractor={(p: any) => `${p.id}`}
-            showsVerticalScrollIndicator={false}
-          />
-        )}
+        <Box p={3} paddingBottom={130}>
+          {products.length === 0 ? (
+            <Center mt={20}>
+              <Text>No products found for this category.</Text>
+            </Center>
+          ) : (
+            <FlatList
+              data={products}
+              numColumns={2}
+              columnWrapperStyle={{justifyContent: 'space-between'}}
+              renderItem={renderProductCard}
+              keyExtractor={(p: any) => `${p.id}`}
+              showsVerticalScrollIndicator={false}
+            />
+          )}
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

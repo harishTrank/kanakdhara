@@ -118,3 +118,9 @@ export const getChildCategoryProducts = ({query}: any) =>
     uriEndPoint: userEndPoints.getChildCategoryProducts.v1,
     query,
   });
+
+export const digitalGoldPay = ({query}: any) =>
+  callApi({
+    uriEndPoint: userEndPoints.digitalGoldPay.v1,
+    query,
+  });

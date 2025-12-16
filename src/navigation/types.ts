@@ -53,6 +53,7 @@ export type DrawerStackParams = {
   RootStack: RootStackParams;
   Profile: undefined;
   Address: undefined;
+  DigitalGold: undefined;
   OrderList: undefined;
   Wallet: undefined;
   Liked: undefined;

@@ -1,8 +1,13 @@
 import React, {FC} from 'react';
 import {TextInputProps} from 'react-native';
+// Note: Ensure native-base is imported correctly
 import {FormControl, Icon, Input, Pressable} from 'native-base';
+
+// Placeholder for your external Colors utility
+// You must ensure this path and its content are correct in your project.
 import {Colors} from '../../utils/Colors';
 
+// Define the type for the props
 type Props = TextInputProps & {
   error?: string;
   isInvalid?: boolean;
@@ -45,13 +50,10 @@ export const FormInput: FC<Props> = ({
       </FormControl.Label>
       <Input
         {...restProps}
-        _input={{
-          selectionColor: '#000',
-          cursorColor: '#000',
-        }}
         placeholder={placeholder}
         variant="unstyled"
-        focusOutlineColor={'primary.400'}
+        // Removed: focusOutlineColor={'primary.400'} as it triggers the bug
+
         colorScheme={'primary'}
         color={'black'}
         fontFamily="body"
@@ -60,6 +62,26 @@ export const FormInput: FC<Props> = ({
         cursorColor={'#000'}
         selectionColor={Colors.grey}
         onChangeText={onChangeText}
+        // AGGRESSIVE FIX 1: Target the inner TextInput element
+        _input={{
+          selectionColor: '#000',
+          cursorColor: '#000',
+          // Explicitly set focus styles for the inner element
+          _focus: {
+            outlineWidth: 0,
+            borderWidth: 0,
+          } as any,
+        }}
+        // AGGRESSIVE FIX 2: Target the outer view container (using 'as any' for TypeScript)
+        _focus={
+          {
+            // This is the primary runtime fix for the Java/Android error
+            outlineWidth: 0,
+            borderWidth: 0,
+            // Double-check with a style object override
+            style: {outlineWidth: 0, borderWidth: 0},
+          } as any
+        }
         InputRightElement={
           <Pressable onPress={onPressHandler}>
             <Icon

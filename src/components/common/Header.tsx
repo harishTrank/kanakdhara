@@ -11,9 +11,10 @@ import {Colors} from '../../utils/Colors';
 
 type Props = {
   heading?: string;
+  cart?: boolean;
 };
 
-export const Header: FC<Props> = ({heading}) => {
+export const Header: FC<Props> = ({heading, cart = true}) => {
   const navigation = useNavigation<BottomNavigationProps>();
   const {goldPrice, isLoading} = useGetGoldRates();
 
@@ -32,7 +33,7 @@ export const Header: FC<Props> = ({heading}) => {
             textAlign={'center'}
             fontWeight={'500'}
             fontSize={'sm'}>
-            24k gold price INR {goldPrice}
+            24k gold price INR {goldPrice} per 10 grams
           </Text>
         )}
       </Box>
@@ -43,8 +44,6 @@ export const Header: FC<Props> = ({heading}) => {
         py={3}
         alignItems={'center'}>
         <Pressable onPress={() => navigation.goBack()} w={'30%'}>
-          {/*<Ionicons name="ios-aeroplane" size={28} color="black" />*/}
-          {/*<Ionicons name="arrow-back" size={28} color="black" />*/}
           <ArrowBackIcon size={'lg'} color={'black'} />
         </Pressable>
         <Text
@@ -59,7 +58,7 @@ export const Header: FC<Props> = ({heading}) => {
           onPress={() => navigation.navigate('Cart')}
           w={'30%'}
           alignItems={'flex-end'}>
-          <Cart width={25} height={25} color={'#000'} />
+          {cart && <Cart width={25} height={25} color={'#000'} />}
         </Pressable>
       </HStack>
     </SafeAreaView>

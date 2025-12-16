@@ -125,12 +125,13 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
             type: 'success',
           });
         })
-        ?.catch((err: any) =>
+        ?.catch((err: any) => {
+          console.warn('dcjdbcjbc', err);
           showMessage({
             message: 'Something went wrong when we add this product.',
             type: 'danger',
-          }),
-        );
+          });
+        });
     }
   };
 
