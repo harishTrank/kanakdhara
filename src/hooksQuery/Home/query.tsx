@@ -8,6 +8,7 @@ import {
   cartListApi,
   removeToCartApi,
   getCustomPriceApi,
+  getSilverCustomPriceApi,
 } from '../../QueryStore/Services/Home';
 
 export const useOfferLayout = () =>
@@ -62,4 +63,10 @@ export const useGetCustomPriceApi = () =>
   useQuery({
     queryKey: ['getCustomPriceApi'],
     queryFn: getCustomPriceApi,
+  });
+
+export const useGetSilverCustomPriceApi = () =>
+  useQuery({
+    queryKey: ['getSilverCustomPriceApi'],
+    queryFn: getSilverCustomPriceApi,
   });

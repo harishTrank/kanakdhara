@@ -9,13 +9,17 @@ import {
   GOLD_API_KEY,
   SILVER_PRICE_URL,
 } from '../../lib/Constants';
-import { useGetCustomPriceApi } from '../../hooksQuery/Home/query';
+import {
+  useGetCustomPriceApi,
+  useGetSilverCustomPriceApi,
+} from '../../hooksQuery/Home/query';
 
 type Props = RootBottomTabScreenProps<'LivePrice'>;
 
 export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
   const [liveDataPrice, setLiveDataPrice] = useState<any[]>([]);
   const getCustomPriceApi: any = useGetCustomPriceApi();
+  const getSilverCustomPriceApi: any = useGetSilverCustomPriceApi();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const renderItem = ({item, index}: any) => {
@@ -108,11 +112,15 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
         return;
       }
 
-      const base24kPrice = Math.round(goldData.price_gram_24k * 10) + (Number(getCustomPriceApi?.data?.karat_24_price_addon) || 6999);
+      const base24kPrice =
+        Math.round(goldData.price_gram_24k * 10) +
+        (Number(getCustomPriceApi?.data?.karat_24_price_addon) || 6999);
       const price22k = Math.round(base24kPrice * 0.916);
       const price18k = Math.round(base24kPrice * 0.75);
       const price14k = Math.round(base24kPrice * 0.6);
-      const silverPricePerKg = Math.round(silverData.price_gram_24k * 1100);
+      const silverPricePerKg =
+        Math.round(silverData.price_gram_24k * 1100) +
+        (Number(getSilverCustomPriceApi?.data?.karat_24_price_addon) || 2500);
       setLiveDataPrice(oldValue => [
         {
           id: 1,

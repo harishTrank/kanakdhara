@@ -108,6 +108,11 @@ export const getCustomPriceApi = () =>
     uriEndPoint: userEndPoints.getCustomPrice.v1,
   });
 
+export const getSilverCustomPriceApi = () =>
+  callApi({
+    uriEndPoint: userEndPoints.getSilverCustomPrice.v1,
+  });
+
 export const deleteAccountApi = ({body}: any) =>
   callApi({
     uriEndPoint: userEndPoints.deleteAccountApi.v1,

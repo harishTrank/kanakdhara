@@ -138,6 +138,13 @@ export const userEndPoints = {
       uri: '24k-pricing/',
     },
   },
+  getSilverCustomPrice: {
+    v1: {
+      ...defaults.methods.GET,
+      ...defaults.versions.v1,
+      uri: '24k-silver-pricing/',
+    },
+  },
   deleteAccountApi: {
     v1: {
       ...defaults.methods.POST,
