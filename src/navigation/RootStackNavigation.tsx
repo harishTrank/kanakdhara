@@ -19,6 +19,7 @@ import {UpdatePasswordScreen} from '../screens/UpdatePassword';
 import PaymentScreen from '../screens/PaymentScreen';
 import {ChildCategory} from '../screens/Category/ChildCategory';
 import {AuthStackNavigation} from './AuthStackNavigation';
+import RingSizeScreen from '../screens/RingSizeScreen';
 
 const Stack: any = createNativeStackNavigator<RootStackParams>();
 
@@ -28,6 +29,7 @@ export const RootStackNavigation = () => {
       <Stack.Screen name="BottomTabs" component={BottomTabNavigation} />
       <Stack.Screen name="AuthStack" component={AuthStackNavigation} />
       <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
+      <Stack.Screen name="RingSize" component={RingSizeScreen} />
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="ProductPage" component={ProductPageScreen} />
       <Stack.Screen name="Cart" component={CartScreen} />

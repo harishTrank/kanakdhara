@@ -118,9 +118,12 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
       const price22k = Math.round(base24kPrice * 0.916);
       const price18k = Math.round(base24kPrice * 0.75);
       const price14k = Math.round(base24kPrice * 0.6);
+      const silverAddon = Number(
+        getSilverCustomPriceApi?.data?.silver_24_karat_price_addon,
+      );
+      const finalSilverAddon = isNaN(silverAddon) ? 0 : silverAddon;
       const silverPricePerKg =
-        Math.round(silverData.price_gram_24k * 1100) +
-        (Number(getSilverCustomPriceApi?.data?.karat_24_price_addon) || 2500);
+        Math.round(silverData.price_gram_24k * 1100) + finalSilverAddon;
       setLiveDataPrice(oldValue => [
         {
           id: 1,
@@ -190,7 +193,11 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
       blurListener();
       onBlur(); // Ensure interval is cleared on unmount
     };
-  }, [navigation]);
+  }, [
+    navigation,
+    getSilverCustomPriceApi?.data?.silver_24_karat_price_addon,
+    getCustomPriceApi?.data?.karat_24_price_addon,
+  ]);
 
   return (
     <Box flex={1} bg={'#ffffff'}>

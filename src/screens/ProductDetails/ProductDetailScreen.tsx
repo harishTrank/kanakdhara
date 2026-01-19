@@ -169,6 +169,10 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
       console.error('Error sharing link:', error.message);
     }
   };
+  console.warn(
+    'route?.params?.item',
+    route?.params?.item?.description?.includes('ring'),
+  );
 
   return (
     <Box flex={1} bg={'#fff'}>
@@ -249,7 +253,23 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
             </TouchableOpacity>
           </HStack>
         </Box>
-
+        <View>
+          <Text
+            onPress={() => {
+              navigation.navigate('RingSize');
+              console.warn('Navigate to ring size chart');
+            }}
+            style={{
+              fontWeight: 'bold',
+              fontSize: 14,
+              color: 'red',
+              textAlign: 'right',
+              marginBottom: 10,
+              marginRight: 15,
+            }}>
+            Calculate Ring Size
+          </Text>
+        </View>
         {/*Harish*/}
         <View style={styles.mainBox}>
           {route?.params?.item?.default_attributes?.map(
