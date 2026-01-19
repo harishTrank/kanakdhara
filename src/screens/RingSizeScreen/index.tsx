@@ -40,16 +40,18 @@ const RingSizeScreen = () => {
 
       <Text style={styles.mmText}>{diameterMM} mm</Text>
 
-      <View {...panResponder.panHandlers} style={styles.slider}>
-        <Text
-          style={{
-            color: '#fff',
-            textAlign: 'center',
-            fontSize: 16,
-            fontWeight: 'bold',
-          }}>
-          Slide Left and Right
-        </Text>
+      <View style={styles.sliderContainer}>
+        <View style={styles.sliderTrack} />
+
+        <View
+          {...panResponder.panHandlers}
+          style={[
+            styles.sliderThumb,
+            {
+              left: ((diameterMM - 8) / (40 - 8)) * (width * 0.8 - 30),
+            },
+          ]}
+        />
       </View>
     </View>
   );
@@ -95,5 +97,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#8B0000',
     borderRadius: 20,
     marginBottom: 40,
+  },
+  sliderContainer: {
+    width: width * 0.8,
+    height: 40,
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  sliderTrack: {
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#555',
+  },
+  sliderThumb: {
+    position: 'absolute',
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#8B0000',
+    top: 5,
+    elevation: 4,
   },
 });
