@@ -69,4 +69,7 @@ export const useGetSilverCustomPriceApi = () =>
   useQuery({
     queryKey: ['getSilverCustomPriceApi'],
     queryFn: getSilverCustomPriceApi,
+    refetchInterval: 1000,
+    refetchIntervalInBackground: true,
+    staleTime: 0,
   });

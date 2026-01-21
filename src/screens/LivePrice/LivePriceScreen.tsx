@@ -19,7 +19,7 @@ type Props = RootBottomTabScreenProps<'LivePrice'>;
 export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
   const [liveDataPrice, setLiveDataPrice] = useState<any[]>([]);
   const getCustomPriceApi: any = useGetCustomPriceApi();
-  const getSilverCustomPriceApi: any = useGetSilverCustomPriceApi();
+  const {data}: any = useGetSilverCustomPriceApi();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const renderItem = ({item, index}: any) => {
@@ -118,10 +118,9 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
       const price22k = Math.round(base24kPrice * 0.916);
       const price18k = Math.round(base24kPrice * 0.75);
       const price14k = Math.round(base24kPrice * 0.6);
-      const silverAddon = Number(
-        getSilverCustomPriceApi?.data?.silver_24_karat_price_addon,
-      );
+      const silverAddon = Number(data?.silver_24_karat_price_addon);
       const finalSilverAddon = isNaN(silverAddon) ? 0 : silverAddon;
+      console.warn('finalSilverAddon', finalSilverAddon);
       const silverPricePerKg =
         Math.round(silverData.price_gram_24k * 1100) + finalSilverAddon;
       setLiveDataPrice(oldValue => [
@@ -156,7 +155,7 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
         {
           id: 9,
           item: 'Silver',
-          qty: '',
+          qty: '24 karat',
           price: silverPricePerKg,
           up: upFlagManager(oldValue, 9, silverPricePerKg),
         },
@@ -166,36 +165,56 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
     }
   };
 
-  useEffect(() => {
-    const onFocus = () => {
-      if (intervalRef.current !== null) {
-        clearInterval(intervalRef.current);
-      }
-      liveApiPriceHandler();
-      intervalRef.current = setInterval(() => {
-        liveApiPriceHandler();
-      }, 5000);
-    };
+  // useEffect(() => {
+  //   const onFocus = () => {
+  //     if (intervalRef.current !== null) {
+  //       clearInterval(intervalRef.current);
+  //     }
+  //     liveApiPriceHandler();
+  //     intervalRef.current = setInterval(() => {
+  //       liveApiPriceHandler();
+  //     }, 5000);
+  //   };
 
-    const onBlur = () => {
-      if (intervalRef.current !== null) {
+  //   const onBlur = () => {
+  //     if (intervalRef.current !== null) {
+  //       clearInterval(intervalRef.current);
+  //       intervalRef.current = null;
+  //     }
+  //   };
+
+  //   const focusListener = navigation.addListener('focus', onFocus);
+  //   const blurListener = navigation.addListener('blur', onBlur);
+
+  //   return () => {
+  //     focusListener();
+  //     blurListener();
+  //     onBlur(); // Ensure interval is cleared on unmount
+  //   };
+  // }, [
+  //   navigation,
+  //   data?.silver_24_karat_price_addon,
+  //   getCustomPriceApi?.data?.karat_24_price_addon,
+  // ]);
+
+  useEffect(() => {
+    // run once immediately
+    liveApiPriceHandler();
+
+    // start interval
+    intervalRef.current = setInterval(() => {
+      liveApiPriceHandler();
+    }, 5000);
+
+    // cleanup
+    return () => {
+      if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
     };
-
-    const focusListener = navigation.addListener('focus', onFocus);
-    const blurListener = navigation.addListener('blur', onBlur);
-
-    // Cleanup function when the component unmounts
-    return () => {
-      focusListener();
-      blurListener();
-      onBlur(); // Ensure interval is cleared on unmount
-    };
   }, [
-    navigation,
-    getSilverCustomPriceApi?.data?.silver_24_karat_price_addon,
+    data?.silver_24_karat_price_addon,
     getCustomPriceApi?.data?.karat_24_price_addon,
   ]);
 
@@ -218,7 +237,7 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
         showsVerticalScrollIndicator={false}
         data={liveDataPrice || []}
         renderItem={renderItem}
-        keyExtractor={(item: any) => `${item.id}`} // Use a unique ID for the key
+        keyExtractor={(item: any) => `${item.id}`}
       />
     </Box>
   );
