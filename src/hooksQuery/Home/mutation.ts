@@ -4,6 +4,7 @@ import {
   customSearch,
   getSingleProduct,
   paymentGetWayKeys,
+  removeItemFromCart,
   updateAddress,
   updateToCart,
 } from '../../QueryStore/Services/Home';
@@ -26,6 +27,10 @@ export const useGetSingleProduct = () =>
 export const useUpdateToCart = () =>
   useMutation({
     mutationFn: payload => updateToCart(payload),
+  });
+export const useRemoveItemFromCart = () =>
+  useMutation({
+    mutationFn: payload => removeItemFromCart(payload),
   });
 
 export const useUpdateAddress = () =>

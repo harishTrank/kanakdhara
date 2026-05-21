@@ -1,91 +1,69 @@
 import React from 'react';
 import {
+  Dimensions,
   FlatList,
   Text as TextNative,
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import {Text, Box, Image} from 'native-base';
-import {getDecimalPart} from '../../../utils/userUtils';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
+const CARD_WIDTH = (SCREEN_WIDTH - 40) / 3;
 
 export const TopSellingRenderItem = (
   item: any,
   navigation: any,
-  height: any = 140,
-  width: any = 160,
+  cardWidth: number = CARD_WIDTH,
+  height: any = CARD_WIDTH + 10,
 ) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       style={{
-        paddingHorizontal: 5,
+        width: cardWidth,
+        marginBottom: 18,
       }}
       onPress={() => navigation.push('ProductDetail', {item})}>
       <Box
-        w={width}
-        h={height}
-        borderRadius={5}
+        width={cardWidth - 8}
+        height={height}
+        borderRadius={12}
         alignItems={'center'}
         justifyContent={'center'}
-        bg={'#FFF'}>
+        bg={'#F8F8F8'}
+        alignSelf={'center'}>
         <Image
           alt={'no img'}
-          size={'lg'}
+          width={'85%'}
+          height={'85%'}
           source={{uri: item?.images?.[0]?.src}}
           resizeMode={'contain'}
         />
       </Box>
-      <Text fontWeight={'500'} fontSize={'sm'} color={'#000'}>
-        {width === 160
-          ? item?.name?.length > 15
-            ? `${item?.name?.slice(0, 15)}...`
-            : item?.name
-          : item?.name?.length > 10
-          ? `${item?.name?.slice(0, 10)}...`
-          : item?.name}
+
+      <Text
+        mt={2}
+        fontWeight={'600'}
+        fontSize={'xs'}
+        color={'#111827'}
+        numberOfLines={1}>
+        {item?.name}
       </Text>
-      <View
-        style={
-          width === 160 && {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginRight: 10,
-          }
-        }>
-        {item.price && (
-          <TextNative
-            style={{
-              fontFamily: 'Montserrat-Medium',
-              fontSize: 10,
-              color: '#1A1A1A',
-            }}>
-            {`₹${item?.variationProduct?.[0]?.price}`}
-          </TextNative>
-        )}
 
-        {/* {item?.regular_price && (
-          <TextNative
-            style={{
-              fontFamily: 'Montserrat-Medium',
-              fontSize: 10,
-              color: '#1A1A1A',
-              textDecorationLine: 'line-through',
-              textDecorationStyle: 'solid',
-            }}>
-            {`₹${item?.regular_price}`}
-          </TextNative>
-        )} */}
-
-        {/* {item.sale_price && (
-          <TextNative
-            style={{
-              fontFamily: 'Montserrat-SemiBold',
-              fontSize: 10,
-              color: '#0E7825',
-            }}>
-            {`${getDecimalPart(item.regular_price, item.sale_price)}% off`}
-          </TextNative>
-        )} */}
-      </View>
+      {item?.variationProduct?.[0]?.price && (
+        <TextNative
+          style={{
+            fontFamily: 'Montserrat-SemiBold',
+            fontSize: 12,
+            color: '#111827',
+            marginTop: 4,
+          }}>
+          ₹{item?.variationProduct?.[0]?.price}
+        </TextNative>
+      )}
     </TouchableOpacity>
   );
 };
@@ -93,14 +71,14 @@ export const TopSellingRenderItem = (
 const TopSellingListComponent = ({navigation, TopSellingList}: any) => {
   return (
     <FlatList
-      style={{
-        paddingHorizontal: 5,
-      }}
-      showsHorizontalScrollIndicator={false}
-      horizontal={true}
       data={TopSellingList}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      keyExtractor={(item, index) => `${item?.id}-${index}`}
+      contentContainerStyle={{
+        paddingHorizontal: 12,
+      }}
       renderItem={({item}: any) => TopSellingRenderItem(item, navigation)}
-      keyExtractor={item => `${item.id + Math.random()}`}
     />
   );
 };

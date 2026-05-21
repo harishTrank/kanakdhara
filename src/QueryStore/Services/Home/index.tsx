@@ -67,6 +67,12 @@ export const updateToCart = ({query}: any) =>
     query,
   });
 
+export const removeItemFromCart = ({query}: any) =>
+  callApi({
+    uriEndPoint: userEndPoints.removeItemFromCart.v1,
+    query,
+  });
+
 export const updateAddress = ({body}: any) =>
   callApi({
     uriEndPoint: userEndPoints.updateAddress.v1,

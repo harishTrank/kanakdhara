@@ -60,6 +60,13 @@ export const userEndPoints = {
       uri: 'cart/update',
     },
   },
+  removeItemFromCart: {
+    v1: {
+      ...defaults.methods.POST,
+      ...defaults.versions.v1,
+      uri: 'cart/remove',
+    },
+  },
 
   updateAddress: {
     v1: {

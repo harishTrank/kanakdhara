@@ -8,16 +8,23 @@ import {
   Pressable,
   Button,
 } from 'native-base';
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 import {RootStackScreenProps} from '../../navigation/types';
 import {Colors} from '../../utils/Colors';
 import {ScreenHeader} from '../../components/common/ScreenHeader';
 import {useAllProducts} from '../../hooksQuery/Home/query';
 import {TopSellingRenderItem} from '../Home/components/TopSellingListComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {cartListApi, getSingleProduct} from '../../QueryStore/Services/Home';
+import {
+  cartListApi,
+  getSingleProduct,
+  removeItemFromCart,
+} from '../../QueryStore/Services/Home';
 import {TouchableOpacity} from 'react-native';
-import {useUpdateToCart} from '../../hooksQuery/Home/mutation';
+import {
+  useRemoveItemFromCart,
+  useUpdateToCart,
+} from '../../hooksQuery/Home/mutation';
 import {showMessage} from 'react-native-flash-message';
 
 type Props = RootStackScreenProps<'Cart'>;
@@ -42,10 +49,38 @@ export const CartScreen: FC<Props> = ({navigation}: any) => {
   };
 
   const updateToCartApiCall: any = useUpdateToCart();
+  const removeItemFromCartApiCall: any = useRemoveItemFromCart();
+
   const updateToCartHandler = async (itemId: any, quantity: any) => {
+    Alert.alert(
+      'Are you sure?',
+      `Do you want to update the quantity ${quantity} of this item?`,
+    );
+    const userId: any = await AsyncStorage.getItem('accessToken');
+    const userId2: any = JSON.parse(userId)?.userId;
+    if (quantity === 0) {
+      removeItemFromCartApiCall
+        ?.mutateAsync({
+          query: {
+            user_id: 20,
+            cart_item_key: '299150a7661ae7f12a975b156c753244',
+          },
+        })
+        ?.then((res: any) => {
+          Alert.alert(JSON.stringify(res));
+          cartListHandler();
+        })
+        ?.catch((err: any) =>
+          showMessage({
+            message: 'Something went wrong when we add this product.',
+            type: 'danger',
+          }),
+        );
+    }
     updateToCartApiCall
       ?.mutateAsync({
         query: {
+          user_id: userId,
           cart_item_key: itemId,
           quantity: `${quantity}`,
         },
@@ -99,7 +134,10 @@ export const CartScreen: FC<Props> = ({navigation}: any) => {
             />
           </Box>
           <Box w={'62%'} ml={3}>
-            <HStack alignItems={'center'} justifyContent={'space-between'}>
+            <HStack
+              alignItems={'center'}
+              paddingTop={5}
+              justifyContent={'space-between'}>
               <Text fontWeight={'600'} fontSize={'md'} color={'black'}>
                 {item?.name?.length > 20
                   ? `${item?.name?.slice(0, 20)}..`
@@ -119,7 +157,7 @@ export const CartScreen: FC<Props> = ({navigation}: any) => {
                 </Checkbox>
               </Checkbox.Group> */}
             </HStack>
-            <HStack flexWrap={'wrap'}>
+            {/* <HStack flexWrap={'wrap'}>
               {searchArray.map(m => (
                 <Text
                   fontWeight={'500'}
@@ -135,10 +173,11 @@ export const CartScreen: FC<Props> = ({navigation}: any) => {
                   {m}
                 </Text>
               ))}
-            </HStack>
+            </HStack> */}
             <HStack
               alignItems={'center'}
               justifyContent={'space-between'}
+              paddingTop={5}
               my={2}>
               <Text fontWeight={'600'} fontSize={'md'}>
                 {`₹${item?.price * item?.quantity}`}

@@ -174,6 +174,15 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
     route?.params?.item?.description?.includes('ring'),
   );
 
+  const defaultAttributes = route?.params?.item?.default_attributes || [];
+
+  // Check if metal-type is silver
+  const isSilver = defaultAttributes?.some(
+    (attr: any) =>
+      attr?.name?.toLowerCase() === 'metal-type' &&
+      attr?.option?.toLowerCase() === 'silver',
+  );
+
   return (
     <Box flex={1} bg={'#fff'}>
       <ScrollView flex={1} bg={'#fff'} showsVerticalScrollIndicator={false}>
@@ -271,7 +280,7 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
           </Text>
         </View>
         {/*Harish*/}
-        <View style={styles.mainBox}>
+        {/* <View style={styles.mainBox}>
           {route?.params?.item?.default_attributes?.map(
             (item: any, index: any) => {
               return (
@@ -287,6 +296,24 @@ export const ProductDetailScreen: FC<Props> = ({navigation, route}: any) => {
               );
             },
           )}
+        </View> */}
+        <View style={styles.mainBox}>
+          {defaultAttributes?.map((item: any, index: any) => {
+            return (
+              <View key={index} style={styles.childBox}>
+                <Text fontWeight={'500'} fontSize={'sm'} color={'#000'}>
+                  {item?.name || ''}
+                </Text>
+
+                <Text fontWeight={'500'} fontSize={'sm'} color={'#000'}>
+                  {item?.option || ''}
+
+                  {/* Add K only if Karat and metal is not silver */}
+                  {item?.name === 'Karat' && !isSilver && 'K'}
+                </Text>
+              </View>
+            );
+          })}
         </View>
 
         {estimateDate?.estimated_delivery && (

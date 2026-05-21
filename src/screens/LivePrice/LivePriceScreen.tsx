@@ -122,7 +122,7 @@ export const LivePriceScreen: FC<Props> = ({navigation}: any) => {
       const finalSilverAddon = isNaN(silverAddon) ? 0 : silverAddon;
       console.warn('finalSilverAddon', finalSilverAddon);
       const silverPricePerKg =
-        Math.round(silverData.price_gram_24k * 1100) + finalSilverAddon;
+        Math.round(silverData.price_gram_24k * 1000) + finalSilverAddon;
       setLiveDataPrice(oldValue => [
         {
           id: 1,

@@ -73,8 +73,13 @@ export const HomeHeader = () => {
           />
         </Pressable>
         <HStack w={'23%'}>
-          <Pressable p={2} onPress={() => {}} mr={3}>
-            <Ionicons name="search" size={25} color="#FFF" />
+          <Pressable
+            p={2}
+            onPress={() => {
+              navigation.navigate('Search');
+            }}
+            mr={3}>
+            <Ionicons name="search" size={25} color="#000" />
           </Pressable>
           <Pressable p={2} onPress={() => navigation.navigate('Cart')}>
             <Cart width={25} height={25} color={'#000'} />

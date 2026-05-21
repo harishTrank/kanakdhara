@@ -29,20 +29,14 @@ export const SearchHeader = ({searchText, setSearchText}: any) => {
           <Ionicons name="arrow-back" size={28} color="black" />
         </Pressable>
         <Input
-          variant="filled"
           placeholder="Search For Id, Category and more."
-          colorScheme={'white'}
-          borderColor={'#f3f3f3'}
-          backgroundColor={'#f3f3f3'}
-          focusOutlineColor={'#f3f3f3'}
-          shadow={2}
-          size={'md'}
-          height={8}
-          py={0}
-          px={3}
           value={searchText}
           onChangeText={setSearchText}
           w={'80%'}
+          bg="#f3f3f3"
+          borderRadius={10}
+          px={3}
+          fontSize={14}
         />
         <Pressable
           onPress={() => navigation.goBack()}
